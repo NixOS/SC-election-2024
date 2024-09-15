@@ -96,13 +96,21 @@ in
 
           Members of the GitHub team can:
 
-          - [Nominate] themselves or others
+          - [Nominate] themselves or others.
           - Endorse [unconfirmed nominees] that they'd like to be able to vote for.
-          - [Ask questions][qna] to nominees
+          - [Ask questions][qna] to nominees.
 
           [nominate]: ${p ../doc/nominate.md}
           [unconfirmed nominees]: ${repo}/pulls?q=is%3Apr+label%3Anomination+is%3Aopen
           [qna]: ${p ../doc/qna.md}
+
+          ${if isEmail then ''
+            If you have any questions or need support, please reply to this Email or get in touch with the [Election Committee][ec] in other ways.
+          '' else ''
+            If you have any questions or need support, please get in touch with the [Election Committee][ec].
+          ''}
+
+          [ec]: https://github.com/nixos/SC-election-2024?tab=readme-ov-file#election-committee-ec
 
           ## Timeline
 
