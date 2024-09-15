@@ -115,15 +115,14 @@
 
 ## Pre-voting phase
 
+- See [this process](./process.md)
+- Organise the Q&A
+
 ## Post-voting phase
 
 ## Misc
 
-- Handle exception requests
-- Handle nominations
-- Organise the Q&A
 - Create the candidate documents
-- Handle email/GitHub handle change requests
 - Making announcements
 - Running CIVS
 - Unsubscribe people
@@ -137,26 +136,7 @@ In case somebody is violating the Q&A rules, their access to the repo can be rem
   - Don't mention the user in the commit, because it's confusing to receive an email for that
   - Tell them in the PR what they can do now
 
-- Send the email to elections@nixos.org so that we have a copy of it
-- If you reply, always CC to elections@nixos.org
-- Use BCC for everybody that needs to receive it
-
-
 Sending reminders:
 - 2024-09-23 Monday: (Reminder)
 - 2024-09-30: Finalise the list of candidates, publish their documents
 - 2024-10-14 Monday: (vote reminder)
-
-Always send a reply email to the registered email (and the one you got an email from) to confirm things
-
-(In a real election, we'd confirm the list of endorsers that have submitted conflicts of interest disclosures here)
-
-In a real election, we'd say something like:
-
-```
-EC: We have received disclosure of CoIs from @a-kenji, @eyJhb and @infinisil, and can confirm that there are enough non-conflicting endorsements to satisfy the condition.
-
-We have also received the application form from @hsjobeki.
-
-This puts this nomination on the ballot!
-```
