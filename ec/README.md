@@ -13,6 +13,7 @@
     - Disable Webhooks
     - Permissions:
       - Repository Permissions > Pull Requests: Read and write
+      - Repository Permissions > Contents: Read and write
       - Organization Permissions > Members: Read and write
   - Ensure the App is installed on the org
   - Give the App access to the current election repository
