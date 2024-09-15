@@ -111,7 +111,7 @@
 
   If you're @-mentioned in this issue, it means you're an automatically eligible voter, but we didn't find an email in the Nixpkgs maintainer list or your GitHub profile. To be able to vote, you must [set your email](https://github.com/NixOS/SC-election-2024/blob/main/doc/email.md) before Monday 2024-10-07.
   ```
-- Directly contact the users in [`usersWithoutEmailAndGitHub.txt`](../usersWithoutEmailAndGitHub.txt).
+- Directly contact the users in `usersWithoutEmailAndGitHub.txt`
 
 ## Pre-voting phase
 

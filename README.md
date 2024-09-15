@@ -4,7 +4,7 @@ This repository contains all information regarding the first SC election in 2024
 The processes and elections for the SC have been established by the [Nix Constitutional Assembly (NCA)](https://github.com/nixos/nix-constitutional-assembly) with the [Nix Governance Constitution](https://github.com/NixOS/nix-constitutional-assembly/blob/main/constitution.md).
 
 > [!Note]
-> Discussing nominations in official community or election support spaces is not allowed, except for the [Q&A](./qna.md) in this repository.
+> Discussing nominations in official community or election support spaces is not allowed, except for the [Q&A](./doc/qna.md) in this repository.
 
 ## Overview
 
