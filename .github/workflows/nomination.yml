@@ -1,0 +1,43 @@
+name: "Nomination PRs"
+
+on:
+  pull_request_target:
+    types: [edited, opened, synchronize, reopened]
+  issue_comment:
+    types: [created, edited]
+
+# This workflow changes state, we shouldn't run multiple at the same time!
+concurrency:
+  group: ${{ github.workflow }}
+  # Canceling could leave us in a bad state
+  cancel-in-progress: false
+
+jobs:
+  process:
+    name: check-handle
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/create-github-app-token@v1
+      id: app-token
+      with:
+        app-id: ${{ vars.APP_ID }}
+        private-key: ${{ secrets.PRIVATE_KEY }}
+    - uses: actions/checkout@v4
+      with:
+        token: ${{ steps.app-token.outputs.token }}
+    - uses: cachix/install-nix-action@v27
+    - name: Process nomination
+      run: nix-shell -p pandoc msmtp --run scripts/check-nomination.sh -I nixpkgs=channel:nixpkgs-unstable
+      env:
+        GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        REPOSITORY: ${{ github.repository }}
+        NOMINATOR_ID: ${{ github.event.pull_request.user.id || github.event.issue.user.id }}
+        NOMINATOR_LOGIN: ${{ github.event.pull_request.user.login || github.event.issue.user.login }}
+        PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
+        PR_TITLE: ${{ github.event.pull_request.title || github.event.issue.title }}
+        EVENT: ${{ github.event_name }}
+        HAS_NOMINATION_LABEL: ${{ github.event_name == 'issue_comment' && contains(github.event.issue.labels.*.name, 'nomination') || contains(github.event.pull_request.labels.*.name, 'nomination') }}
+        IS_ENDORSEMENT: ${{ github.event_name == 'issue_comment' && github.event.comment.performed_via_github_app == null && contains(github.event.comment.body, '!endorse') }}
+        ENDORSER_ID: ${{ github.event.comment.user.id }}
+        ENDORSER_LOGIN: ${{ github.event.comment.user.login }}
