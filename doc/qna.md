@@ -43,7 +43,7 @@ Note that you don't need to answer every question.
 Please keep answers short and relevant.
 Note that editing answers is allowed.
 
-Be aware of the [the timeline](../README.md#timeline): The deadline for asking questions is Sunday 2024-10-06.
+Be aware of the [the timeline](../README.md#timeline): The deadline for answering questions is Sunday 2024-10-06.
 
 ### How to answer a question
 
