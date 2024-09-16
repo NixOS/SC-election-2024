@@ -165,7 +165,6 @@ in
 
             githubInfo=$(jq -r --arg to "$to" '."\($to)"' ${voters}/emails-to-github)
             if [[ "$githubInfo" =~ @(.*) ]]; then
-              # TODO: Test this
               file=${emailLoginMissing}
               login=''${BASH_REMATCH[1]}
             else
