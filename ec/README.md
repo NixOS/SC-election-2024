@@ -74,7 +74,7 @@
 - Create a retro document to write things down that could be improved for the future.
 
 ### For every EC member
-- Make sure every EC member can send and receive Emails from `elections@nixos.org`.
+- Make sure every EC member can send and receive emails from `elections@nixos.org`.
   If ImprovMX is still the Mail service used, follow [this tutorial](https://help.improvmx.com/improvmx-smtp-how-tos).
 
   Make sure to set the identity to "Nix Election Committee" or so

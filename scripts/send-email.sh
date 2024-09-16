@@ -14,7 +14,7 @@ cat <<EOF >> "$tmp/content"
 
 ---
 
-To stop getting emails and waive your voter privileges for the Nix SC Election 2024, let us know in a reply to this Email.
+To stop getting emails and waive your voter privileges for the Nix SC Election 2024, let us know in a reply to this email.
 EOF
 
 # pandoc -f gfm -t gfm --wrap=auto --columns=76 -o "$tmp/content" "$tmp/content"

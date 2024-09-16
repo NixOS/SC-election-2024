@@ -10,8 +10,8 @@ To endorse a candidate:
    This PR will be merged if there are enough endorsements to satisfy the conflict of interest requirement,
    so if it's still open, the nominee might still need more endorsements.
 1. Reply with a comment containing `!endorse`.
-   You should receive an automated Email to your [voter Email address](./email.md),
+   You should receive an automated email to your [voter email address](./email.md),
    asking for disclosure of your conflicts of interest.
-1. Reply to the Email with your conflicts of interest. These will be kept private.
+1. Reply to the email with your conflicts of interest. These will be kept private.
 
 Note that you can endorse as many nominees as they like.

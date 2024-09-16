@@ -110,7 +110,7 @@ in
           [qna]: ${p ../doc/qna.md}
 
           ${if platform == "email" then ''
-            If you have any questions or need support, please reply to this Email or get in touch with the [Election Committee][ec] in other ways.
+            If you have any questions or need support, please reply to this email or get in touch with the [Election Committee][ec] in other ways.
           '' else ''
             If you have any questions or need support, please get in touch with the [Election Committee][ec].
           ''}
@@ -122,7 +122,8 @@ in
           - 2024-09-29 Sun: Deadline for nominations
           - 2024-10-01 Tue: Deadline for endorsements
           - 2024-10-03 Thu: Deadline for candidate questions
-          - 2024-10-06 Sun: Deadline for candidate answers, submitting voter exceptions and updating voter emails
+          - 2024-10-06 Sun: Deadline for candidate answers,
+            submitting voter exceptions and updating voter email addresses
           - 2024-10-07 Mon: Voting starts
           - 2024-10-20 Sun: Voting ends
           - 2024-10-23 Wed: Results announced

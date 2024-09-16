@@ -10,7 +10,7 @@ Hello, @$nomineeHandle
 
 You've just [been nominated] for the Nix Steering Committee!
 
-If you don't accept the nomination, you can ignore this Email.
+If you don't accept the nomination, you can ignore this email.
 
 If you do accept, post a comment in the nomination PR.
 
@@ -20,7 +20,7 @@ To get on the ballot as a candidate, there are some additional requirements:
   If you become a Steering Committee member, you will need to uphold these.
   If you have any questions about these documents,
   feel free to [contact the EC].
-- Reply to this Email with the filled-out candidate template below.
+- Reply to this email with the filled-out candidate template below.
   If you become a candidate,
   this document will be published and linked on the ballot.
 - Get [endorsed] by at least 3 other eligible voters,

@@ -11,7 +11,7 @@ Hello, @$nomineeHandle
 Thank you for [your nomination] for the Nix Steering Committee!
 
 To get on the ballot as a candidate, there are some additional requirements:
-- Reply to this Email with the filled-out candidate template below.
+- Reply to this email with the filled-out candidate template below.
   If you become a candidate,
   this document will be published and linked on the ballot.
 - Get [endorsed] by at least 3 other eligible voters,
