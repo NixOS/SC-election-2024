@@ -17,7 +17,7 @@ List any potential conflicts of interest here
 #### What I have done
 
 - What's your history in the Nix community?
-- What are you most/least proud of?
+- What are you most proud of?
 
 #### What I'll do
 
