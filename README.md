@@ -13,10 +13,10 @@ To participate as a voter:
 Eligible voters can participate in the nomination period:
 - [Nominate](./doc/nominate.md) yourself or others.
 - Endorse [unconfirmed nominees](https://github.com/NixOS/SC-election-2024/pulls?q=is%3Apr+label%3Anomination+is%3Aopen) that you'd like to be able to vote for.
-- [Ask questions](./doc/qna.md) to nominees.
+- [Ask questions](./doc/qna.md) to nominees as the primary way of engaging with them.
 
 > [!Note]
-> Discussing nominations in official community or election support spaces is not allowed.
+> Please keep campaigning in other ways to a minimum.
 
 This document describes the election overall instead, including:
 - The [election timeline](#timeline) and its deadlines.
