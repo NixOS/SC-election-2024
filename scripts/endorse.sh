@@ -25,7 +25,7 @@ To complete the endorsement,
 reply to this email with your [conflicts of interest].
 
 [nomination]: https://github.com/$REPOSITORY/pull/$PR_NUMBER
-[conflicts of interest]: https://en.wikipedia.org/wiki/Conflict_of_interest
+[conflicts of interest]: https://github.com/$REPOSITORY/blob/main/doc/conflict-of-interest.md
 EOF
 
 gh api \

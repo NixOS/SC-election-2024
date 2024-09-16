@@ -134,7 +134,7 @@ The requirements to become a candidate are as follows:
 
 - To be [eligible for voting](#eligible-voters)
 - To provide a public position statement on why one should be elected
-- To publicly disclose all potential conflicts of interest
+- To publicly disclose all potential [conflicts of interest](./doc/conflict-of-interest.md)
   - This includes conflicts of interest to arise during the term based on already finalised agreements
 - To be publicly [endorsed](./doc/endorse.md) by at least 3 other people eligible to vote
   - Among the candidate and their endorsers, there must be at least 4 individuals where no two have the same conflict of interest (e.g. employees of the same company or otherwise the same payer for Nix work), as decided by the EC.

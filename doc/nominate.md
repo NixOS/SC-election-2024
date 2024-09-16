@@ -17,7 +17,7 @@ All [eligible voters](../README.md#eligible-voters) can nominate any other eligi
    If you become a candidate, this document will be published and linked on the ballot.
 1. Find at least 3 other people in the [@NixOS/voters-2024 team](https://github.com/orgs/NixOS/teams/voters-2024) to [endorse](./endorse.md) you,
    such that among you and the endorsers,
-   there are at least four people with no two sharing a [conflict of interest](https://en.wikipedia.org/wiki/Conflict_of_interest).
+   there are at least four people with no two sharing a [conflict of interest](./conflict-of-interest.md).
 
 ## How to nominate somebody else
 
