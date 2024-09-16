@@ -202,7 +202,7 @@ in
             # Store command results
             --joblog jobs.log
             # Only start a new job every second
-            --delay 1
+            --delay 0.2
             # Run up to 10 jobs together
             -j10
             # Silence the citation message

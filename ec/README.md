@@ -112,8 +112,15 @@
 - Send the emails (needs `SMTP_PASSWORD` set):
   ```
   nix-build ec -A announce.email --argstr discourseLink $DISCOURSE_LINK
-  ./result.sh
+  ./result
   ```
+
+  If any fail to send, resume using
+  ```
+  ./result --resume
+  ```
+
+  You can view failed sends in `jobs.log`, but you might also get mail delivery failure responses.
 - Announce it on GitHub:
 
   Wait until both:
