@@ -1,3 +1,5 @@
+This is a very drafty doc!
+
 Ballots should have names plus the CoI identifier/category/pairwise disqualification tag, something like that
 
 Description should point out the CoI thing, that the result of the election might not be correct just yet

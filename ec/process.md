@@ -53,9 +53,9 @@ When replying to emails, make sure it's sent to all of:
 
 ## On receiving exception requests
 
-- Initiate the [decision process](#decision-process) to decide over whether they meet the [bar for eligibility](https://github.com/NixOS/SC-election-2024/blob/main/doc/exception-request.md#how-to-request-a-voter-exception)
+- Initiate the [decision process](#decision-process) to decide over whether they meet the [bar for eligibility](../doc/exception-request.md)
 - If approved:
-  - Add their Email (and GitHub user if they provided one) to the [`voters.json` file](https://github.com/NixOS/SC-election-2024/blob/main/voters.json) and commit it
+  - Add their email (and GitHub user if they provided one) to the [`voters.json` file](../voters.json) and commit it
   - Reply with
     ```
     Thank you, we are approving your exception request, you have been added to the voters list.
