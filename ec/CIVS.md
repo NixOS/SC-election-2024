@@ -34,3 +34,10 @@ The final results in case of conflicts of interest will be available a few days 
 - Upload `result/emails.txt` as the voter list
 - Download the CSV table of voters that haven't activated their email yet
 - TODO: Run a script to send all of those users a reminder to active to be able to vote
+
+
+## To evaluate results
+
+- Look at "Winning set(s) of choices" for the winners, there might be ties which can be resolved by looking at "Choices (in individual preference order)", I think
+- If there's CoI conflicts in the winning set, click "Show details" and "Download ballots in CSV format"
+- Remove the candidate with the least votes from the ballots and create a new test poll with the changed ballots
