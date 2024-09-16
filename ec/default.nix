@@ -34,14 +34,16 @@ in
 
           [repo]: ${repo}
 
-          The Steering Committee will be a primary leadership body, responsible for steering the official Nix projects;
-          organisationally, socially and technically.
+          The Steering Committee will be the primary community leadership body, responsible for steering the official Nix projects --
+          organisationally, socially, and technically.
           This includes making decisions over what is official, managing teams,
           approving NixOS Foundation policies relevant for the community,
-          being the final escalation point, and more.
+          being the final escalation point, and more as [detailed in the Nix Governance Constitution][constitution].
 
-          While the SC is given the authority to make decisions within the scope of its responsibilities directly,
-          one of the primary goals should be to delegate as much of it as possible.
+          [constitution]: https://github.com/NixOS/nix-constitutional-assembly/blob/main/constitution.md#steering-committee
+
+          While the Steering Committee is given the authority to make decisions within the scope of its responsibilities directly,
+          it is expected to delegate as much as possible.
 
         ''
         + lib.optionalString (platform != "discourse") ''
@@ -103,7 +105,7 @@ in
 
           - [Nominate] themselves or others.
           - Endorse [unconfirmed nominees] that they'd like to be able to vote for.
-          - [Ask questions][qna] to nominees.
+          - [Ask questions][qna] to nominees as the primary way of engaging with them.
 
           [nominate]: ${p ../doc/nominate.md}
           [unconfirmed nominees]: ${repo}/pulls?q=is%3Apr+label%3Anomination+is%3Aopen
