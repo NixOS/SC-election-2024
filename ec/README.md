@@ -30,14 +30,8 @@
 - Make sure the EC has moderator permissions for the room
 
 ### For the EC
-- Make sure every EC member can send and receive Emails from `elections@nixos.org`.
-  If ImprovMX is still the Mail service used, follow [this tutorial](https://help.improvmx.com/improvmx-smtp-how-tos).
-
-  Make sure to set the identity to "Nix Election Committee" or so
 - Set the SMTP password as a new repository secret with key `SMTP_PASSWORD`
-- Enable notifications for the public Matrix room
 - Create a private room for the EC members to decide over things (Matrix or otherwise)
-- Subscribe to all activity on the election repository
 - In the repositories Moderation options, limit interactions to repository collaborators for the maximum possible duration (should be 6 months)
 - Set up branch protection for the repo
 - Set up a GitHub team for the voters:
@@ -78,6 +72,14 @@
   and maybe [set the base organisation access](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/setting-base-permissions-for-an-organization) to None,
   because the GitHub App invites users to the organisation, which gives them access to all private repos by default.
 - Create a retro document to write things down that could be improved for the future.
+
+### For every EC member
+- Make sure every EC member can send and receive Emails from `elections@nixos.org`.
+  If ImprovMX is still the Mail service used, follow [this tutorial](https://help.improvmx.com/improvmx-smtp-how-tos).
+
+  Make sure to set the identity to "Nix Election Committee" or so
+- Enable notifications for the public Matrix room
+- Subscribe to all activity on the election repository
 
 ## Kick-off
 - Update the blocked users list:
