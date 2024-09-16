@@ -54,6 +54,8 @@ When replying to emails, make sure it's sent to all of:
 ## On receiving exception requests
 
 - Initiate the [decision process](#decision-process) to decide over whether they meet the [bar for eligibility](../doc/exception-request.md)
+
+  You may want to [list the users GitHub contributions](../doc/check-contributions.md) to help with that.
 - If approved:
   - Add their email (and GitHub user if they provided one) to the [`voters.json` file](../voters.json) and commit it
   - Reply with
