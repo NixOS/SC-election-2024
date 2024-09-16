@@ -23,8 +23,8 @@ in
   announce =
     let
       announcement =
-        isEmail: loginExists:
-        lib.optionalString (isEmail && loginExists) ''
+        platform: loginExists: discourseLink:
+        lib.optionalString (platform == "email" && loginExists) ''
           Hello, @@GITHUB_LOGIN@
 
         ''
@@ -44,50 +44,55 @@ in
           one of the primary goals should be to delegate as much of it as possible.
 
         ''
-        + lib.optionalString isEmail ''
+        + lib.optionalString (platform != "discourse") ''
           Note that you can also read and publicly discuss this announcement [on Discourse][discourse].
 
-          [discourse]: @DISCOURSE_LINK@
+          [discourse]: ${discourseLink}
 
         ''
         + ''
           ## Participating
 
         ''
-        + (
-          if isEmail then
-            ''
-              You're receiving this email because you're an [automatically eligible] voter.
-              If you'd like to use this email address for voting, please [activate] it.
-              Otherwise, [change your email][email] first.
+        + {
+          email = ''
+            You're receiving this email because you're an [automatically eligible] voter.
+            If you'd like to use this email address for voting, please [activate] it.
+            Otherwise, [change your email][email] first.
 
-              [activate]: https://civs1.civs.us/cgi-bin/opt_in.pl
+            [activate]: https://civs1.civs.us/cgi-bin/opt_in.pl
 
-            ''
-            + (
-              if loginExists then
-                ''
-                  Your GitHub account @@GITHUB_LOGIN@ is also being added to the [@NixOS/voters-2024][team] GitHub team.
+          ''
+          + (
+            if loginExists then
+              ''
+                Your GitHub account @@GITHUB_LOGIN@ is also being added to the [@NixOS/voters-2024][team] GitHub team.
 
-                ''
-              else
-                ''
-                  Since your original GitHub account @@GITHUB_LOGIN@ doesn't exist anymore,
-                  we could not add you to the [@NixOS/voters-2024][team] GitHub team.
-                  If you have a new GitHub account, let us know in a reply so we can add you.
+              ''
+            else
+              ''
+                Since your original GitHub account @@GITHUB_LOGIN@ doesn't exist anymore,
+                we could not add you to the [@NixOS/voters-2024][team] GitHub team.
+                If you have a new GitHub account, let us know in a reply so we can add you.
 
-                ''
-            )
-          else
-            ''
-              [Automatically eligible] voters will be sent an email and be added/invited to the [@NixOS/voters-2024][team] GitHub team.
-              If you're on the GitHub team but have not received an email, make sure to [check and optionally update your email address][email].
+              ''
+          );
+          github = ''
+            If you're pinged by the mention of @NixOS/voters-2024 here,
+            it means you're [automatically eligible] to vote.
 
-              If you're neither on the GitHub team nor have received an email, you're likely not automatically eligible.
-              In this case you may consider [requesting an exception][exception].
+            If you didn't also receive an announcement email,
+            make sure to [check and optionally update your email address][email].
 
-            ''
-        )
+          '';
+        }.${platform} or ''
+          [Automatically eligible] voters will be sent an email and be added/invited to the [@NixOS/voters-2024][team] GitHub team.
+          If you're on the GitHub team but have not received an email, make sure to [check and optionally update your email address][email].
+
+          If you're neither on the GitHub team nor have received an email, you're likely not automatically eligible.
+          In this case you may consider [requesting an exception][exception].
+
+        ''
         + ''
           [automatically eligible]: ${repo}?tab=readme-ov-file#automatically-eligible-voters
           [team]: https://github.com/orgs/${org}/teams/voters-2024
@@ -104,7 +109,7 @@ in
           [unconfirmed nominees]: ${repo}/pulls?q=is%3Apr+label%3Anomination+is%3Aopen
           [qna]: ${p ../doc/qna.md}
 
-          ${if isEmail then ''
+          ${if platform == "email" then ''
             If you have any questions or need support, please reply to this Email or get in touch with the [Election Committee][ec] in other ways.
           '' else ''
             If you have any questions or need support, please get in touch with the [Election Committee][ec].
@@ -126,45 +131,82 @@ in
           which starts on 2024-10-25.
         '';
 
-      discourse = builtins.toFile "discourse" (announcement false (throw "unused"));
-      emailLoginExists = builtins.toFile "email-login-exists" (announcement true true);
-      emailLoginMissing = builtins.toFile "email-login-missing" (announcement true false);
-      email = pkgs.writeShellScript "sendEmails" ''
-        PATH=${lib.makeBinPath [ pkgs.gnused pkgs.coreutils pkgs.jq pkgs.github-cli ]}
-        set -euo pipefail
-
-        if (( $# < 1 )); then
-          echo "Usage: $0 DISCOURSE_POST_URL"
-          exit 1
-        fi
-        discourseLink=$1
-
-        tmp=$(mktemp -d)
-        trap 'rm -rf "$tmp"' exit
-
-        while read -r email id; do
-          if [[ "$id" =~ @(.*) ]]; then
-            cp --no-preserve=mode ${emailLoginMissing} "$tmp/mail.md"
-            login=''${BASH_REMATCH[1]}
-          else
-            cp --no-preserve=mode ${emailLoginExists} "$tmp/mail.md"
-            login=$(gh api /user/"$id" --cache=1000h --jq .login)
-          fi
-          sed -i \
-            -e "s!@GITHUB_LOGIN@!$login!g" \
-            -e "s!@DISCOURSE_LINK@!$discourseLink!g" \
-            "$tmp/mail.md"
-          echo "Sending an email to $email"
-          ${sendEmail} "$email" "Kickoff" <"$tmp/mail.md"
-        done < <(jq 'to_entries[] | "\(.key) \(.value)"' -r ${voters}/emails-to-github)
+      nowrap = name: text: pkgs.runCommand "${name}-nowrap" {
+        source = text;
+        passAsFile = [ "source" ];
+        nativeBuildInputs = [ pkgs.pandoc ];
+      } ''
+        pandoc -f gfm -t gfm --wrap=none "$sourcePath" -o "$out"
       '';
 
     in
-    pkgs.runCommand "announcement" {
-      nativeBuildInputs = [ pkgs.pandoc ];
-    } ''
-      mkdir -p $out
-      pandoc -f gfm -t gfm --wrap=none ${discourse} -o $out/discourse.md
-      ln -s ${email} $out/email.sh
-    '';
+    {
+      discourse = nowrap "discourse.md" (announcement "discourse" (throw "unused") (throw "unused"));
+      github = { discourseLink }: nowrap "github.md" (announcement "github" (throw "unused") discourseLink);
+
+      website = { discourseLink }: pkgs.writeText "website.md" (''
+        ---
+        id: sc-election-2024
+        title: Nix Steering Committee Election 2024
+        date: 2024-09-16T00:00:00.000Z
+        category: announcements
+        ---
+      '' + announcement "website" (throw "unused") discourseLink);
+
+      email = { discourseLink }:
+        let
+          emailLoginExists = builtins.toFile "email-login-exists" (announcement "email" true discourseLink);
+          emailLoginMissing = builtins.toFile "email-login-missing" (announcement "email" false discourseLink);
+
+          single = pkgs.writeShellScript "sendSingle" ''
+            set -euo pipefail
+            to=$1
+
+            githubInfo=$(jq -r --arg to "$to" '."\($to)"' ${voters}/emails-to-github)
+            if [[ "$githubInfo" =~ @(.*) ]]; then
+              # TODO: Test this
+              file=${emailLoginMissing}
+              login=''${BASH_REMATCH[1]}
+            else
+              file=${emailLoginExists}
+              login=$(gh api /user/"$githubInfo" --cache=1000h --jq .login)
+            fi
+
+            sed -e "s/@GITHUB_LOGIN@/$login/g" "$file" |
+              ${sendEmail} "$to" "Nix Steering Committee Election 2024"
+          '';
+        in
+        pkgs.writeShellScript "sendEmails" ''
+          PATH=${lib.makeBinPath [
+            pkgs.gnused
+            pkgs.coreutils
+            pkgs.jq
+            pkgs.github-cli
+            pkgs.parallel
+          ]}
+          set -euo pipefail
+
+          # TODO: Make sure interrupting parallel doesn't make it fail poorly
+          # https://stackoverflow.com/questions/45147904/how-do-i-terminate-gnu-parallel-without-killing-running-jobs
+          # https://stackoverflow.com/questions/24848843/how-do-i-stop-a-signal-from-killing-my-bash-script
+
+          echo "Writing to jobs.log"
+
+          parallelArgs=(
+            # Show progress with a bar
+            --bar
+            # Halt as soon as 1 job failed, wait for the running jobs to finish
+            --halt soon,fail=1
+            # Store command results
+            --joblog jobs.log
+            # Only start a new job every second
+            --delay 1
+            # Run up to 10 jobs together
+            -j10
+            # Silence the citation message
+            --will-cite
+          )
+          parallel "''${parallelArgs[@]}" "$@" ${single} <${voters}/emails.txt
+        '';
+    };
 }

@@ -96,24 +96,35 @@
   nix-build -A generateVoters
   ./result
   ```
-- Announce it on the website
 - Announce it to discourse:
   ```
-  nix-build ec -A announce
+  nix-build ec -A announce.discourse
   ```
 
-  Then posting `result/discourse.md` to Discourse.
+  Then post the contents of `result` to Discourse
+- Announce it on the website, linking to discourse:
+  ```
+  nix-build ec -A announce.website --argstr discourseLink $DISCOURSE_LINK
+  ```
+
+  Then make a PR against [the website announcements](https://github.com/NixOS/nixos-homepage/tree/main/src/content/blog/announcements) and ping somebody from the marketing team to merge it.
 - Push the generated `voters.json` to start triggering team additions
-- Run, inserting the Discourse link from the announcement:
+- Send the emails (needs `SMTP_PASSWORD` set):
   ```
-  ./result/email.sh $LINK_TO_DISCOURSE_POST
+  nix-build ec -A announce.email --argstr discourseLink $DISCOURSE_LINK
+  ./result.sh
   ```
-- Post an issue to the election repo pinging both the voters team and directly all users without emails (as `$(nix-build -A voters)/users-without-emails` gives you)
-  ```
-  TODO: Something something $LINK_TO_DISCOURSE_POST, you should've received an email, if you didn't, check and update it
+- Announce it on GitHub:
 
-  If you're @-mentioned in this issue, it means you're an automatically eligible voter, but we didn't find an email in the Nixpkgs maintainer list or your GitHub profile. To be able to vote, you must [set your email](https://github.com/NixOS/SC-election-2024/blob/main/doc/email.md) before Monday 2024-10-07.
+  Wait until both:
+  - All automatically eligible voters have been invited to the team
+  - All emails are sent
+
   ```
+  nix-build ec -A announce.github --argstr discourseLink $DISCOURSE_LINK
+  ```
+
+  Then post `./result` as an issue to the election repo
 - Directly contact the users in `usersWithoutEmailAndGitHub.txt`
 
 ## Pre-voting phase

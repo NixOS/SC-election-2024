@@ -66,7 +66,7 @@ pandoc -f gfm -t html -o "$tmp/html" "$tmp/content"
 
 msmtp -t << EOF 
 To: $to
-Subject: Nix SC Election 2024: $subject
+Subject: $subject
 MIME-Version: 1.0
 Content-Type: multipart/alternative; boundary="$boundary"
 

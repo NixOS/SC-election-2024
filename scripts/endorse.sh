@@ -15,7 +15,7 @@ if ! endorserEmail=$(jq -er --arg id "$ENDORSER_ID" '."\($id)"' result/github-to
 EOF
   exit 0
 fi
-scripts/send-email.sh "$endorserEmail" "Endorser conflicts of interest" <<EOF
+scripts/send-email.sh "$endorserEmail" "Nix SC Election 2024: Endorser conflicts of interest" <<EOF
 Hello, @$ENDORSER_LOGIN
 
 You've indicated that you'd like to endorse the

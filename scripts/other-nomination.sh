@@ -5,7 +5,7 @@ nomineeEmail=$1
 nomineeHandle=$2
 
 # Mostly duplicated in ./self-nomination.sh!
-scripts/send-email.sh "$nomineeEmail" "You have been nominated" <<EOF
+scripts/send-email.sh "$nomineeEmail" "Nix SC Election 2024: You have been nominated" <<EOF
 Hello, @$nomineeHandle
 
 You've just [been nominated] for the Nix Steering Committee!
