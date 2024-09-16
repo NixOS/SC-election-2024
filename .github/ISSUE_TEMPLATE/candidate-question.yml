@@ -7,7 +7,7 @@ body:
   id: question
   attributes:
     label: Question
-    description: "State the question here. Make sure to adhere to the [Q&A rules](https://github.com/nix-constitutional-assembly-2024/SC-election-2024/blob/main/doc/qna.md). Please keep the question short and relevant."
+    description: "State the question here. Make sure to adhere to the [Q&A rules](https://github.com/NixOS/SC-election-2024/blob/main/doc/qna.md). Please keep the question short and relevant."
   validations:
     required: true
 - type: textarea
@@ -15,12 +15,12 @@ body:
   attributes:
     label: "Candidates I'd like to get an answer from"
     placeholder: "Optionally @-mention a specific candidate or nominee to ask them to answer the question"
-    description: "All nominations can be seen [here](https://github.com/nix-constitutional-assembly-2024/SC-election-2024/pulls?q=is%3Apr+label%3Anomination+). Note that other candidates can also answer"
+    description: "All nominations can be seen [here](https://github.com/NixOS/SC-election-2024/pulls?q=is%3Apr+label%3Anomination+). Note that other candidates can also answer"
 - type: textarea
   id: rules
   attributes:
     label: Reminder of the Q&A rules
     description: Please keep this section unchanged
-    value: "Please adhere to the [Q&A guidelines and rules](https://github.com/nix-constitutional-assembly-2024/SC-election-2024/blob/main/doc/qna.md)"
+    value: "Please adhere to the [Q&A guidelines and rules](https://github.com/NixOS/SC-election-2024/blob/main/doc/qna.md)"
   validations:
     required: true
