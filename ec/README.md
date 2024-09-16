@@ -132,6 +132,9 @@
 - See [this process](./process.md)
 - Organise the Q&A
 
+## Starting the voting phase
+- Determine which pairs of candidates share the same conflict of interest
+
 ## Post-voting phase
 
 ## Misc
