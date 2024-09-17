@@ -66,7 +66,7 @@ case "$EVENT" in
       scripts/self-nomination.sh "$email" "$nomineeHandle"
     else
       scripts/other-nomination.sh "$email" "$nomineeHandle"
-      ENDORSER_ID="$NOMINATOR_ID" ENDORSER_LOGIN="$NOMINATOR_LOGIN" scripts/endorse.sh "$nomineeHandle"
+      ENDORSER_ID="$NOMINATOR_ID" ENDORSER_LOGIN="$NOMINATOR_LOGIN" scripts/endorse.sh
     fi
 
     gh api --method POST \
@@ -76,7 +76,6 @@ case "$EVENT" in
     ;;
   issue_comment)
     if [[ "$IS_ENDORSEMENT" == true ]]; then
-      getNominee
-      scripts/endorse.sh "$nomineeHandle"
+      scripts/endorse.sh
     fi
 esac
