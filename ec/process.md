@@ -24,8 +24,6 @@ When replying to emails, make sure it's sent to all of:
 - Commit the CoI disclosure to the private repo and reply to the email with
   ```
   Thank you, we have received your conflicts of interest disclosure.
-  Once at least 3 nomination endorsements satisfy the conflicts of interest restriction,
-  we will post a comment on the nomination.
   ```
 - For all PRs the endorser was involved with (search for `involves:someUser`) that have at least 3 endorsements on the PR,
   initiate the [decision process](#decision-process) to decide over whether there are enough non-conflicting endorsements.
@@ -43,8 +41,6 @@ When replying to emails, make sure it's sent to all of:
 - Commit the nomination form to the private repo and reply to the email with
   ```
   Thank you, we have received your nomination form.
-  Once you get at least 3 endorsements that satisfy the conflicts of interest restriction,
-  we will post a comment on the nomination and merge the pull request.
   ```
 - Merge the PR if 3 non conflicting endorsements were made (see above)
   ```
