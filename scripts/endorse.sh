@@ -46,7 +46,9 @@ EOF
 echo "$ENDORSER_ID" >> "$endorsersAskedFile"
 git add "$endorsersAskedFile"
 git commit -m "Update list of endorsers asked"
-git push
+while ! git push; do
+  git pull --rebase
+done
 
 gh api \
   --method POST \

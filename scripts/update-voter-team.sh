@@ -116,5 +116,7 @@ done | sort > "$invitedFile"
 git add scripts/invited.txt
 if ! git diff --cached --exit-code; then
   git commit -m "Update list of invited users"
-  git push
+  while ! git push; do
+    git pull --rebase
+  done
 fi
