@@ -1,0 +1,77 @@
+name: "Email updates"
+
+on:
+  pull_request_target:
+
+jobs:
+  automerge:
+    name: Automerge
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/create-github-app-token@v1
+      id: app-token
+      with:
+        app-id: ${{ vars.APP_ID }}
+        private-key: ${{ secrets.PRIVATE_KEY }}
+    - uses: actions/checkout@v4
+      with:
+        # pull_request_target checks out the base branch by default
+        ref: refs/pull/${{ github.event.pull_request.number }}/merge
+        fetch-depth: 0
+    - name: Automerge if verified email update
+      run: |
+        # Because we fetch a merge commit, HEAD has two parents:
+        # HEAD^1 is the last commit of the base branch
+        base=$(git rev-parse HEAD^1)
+        # HEAD^2 is the PRs head commit
+        head=$(git rev-parse HEAD^2)
+
+        # To be able to check the diff of the PR, we can't just compare base to head,
+        # because that would give differences when the base branch gets new commits.
+        # Instead, the merge base is what we need here,
+        # this is also what the `git diff base...head` syntax does
+        from=$(git merge-base "$base" "$head")
+        to=$head
+
+        # All files changed by the PR
+        changedFiles=$(git diff "$from" "$to" --name-only)
+
+        if [[ "$changedFiles" != "voters.json" ]]; then
+          echo "PR has non-voters.json changes, can't automerge"
+          exit 0
+        fi
+
+        # The voters.json file for a specific ref but without the PR author's entry
+        withoutAuthor() {
+          # Get voters.json for a specific ref
+          git show "$1":voters.json |
+            # Only keep non-author entries
+            jq --argjson id "$AUTHOR_ID" 'with_entries(select(.value != $id))'
+        }
+
+        # Ensure that all non-author voters.json entries are the same before and after the PR
+        if [[ "$(withoutAuthor "$from")" != "$(withoutAuthor "$to")" ]]; then
+          echo "PR has non-PR-author changes to voters.json, can't automerge"
+          exit 0
+        fi
+
+        # Merge the pull request, notably passing the sha we checked here,
+        # to make sure it can't be updated while we're not looking
+        gh api \
+          --method PUT \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          "/repos/$REPOSITORY/pulls/$PR_NUMBER/merge" \
+          -f "sha=$to"
+
+        gh api \
+          --method POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          "/repos/$REPOSITORY/issues/$PR_NUMBER/comments" \
+          -f "body=Automerged because this PR only changes the PR authors \`voters.json\` entry"
+      env:
+        GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        REPOSITORY: ${{ github.repository }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        AUTHOR_ID: ${{ github.event.pull_request.user.id }}
