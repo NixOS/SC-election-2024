@@ -6,6 +6,9 @@ you won't be able to [vote](./vote.md).
 Be aware of the [the timeline](../README.md#timeline):
 The deadline for changing emails is Sunday 2024-10-06.
 
+> [!Warning]
+> The CIVS platform does not accept all valid domains, and will throw an *"Illegal mail address"* error for some. Be sure to check **early** whether your email address is accepted by the platform, and to submit a PR updating `voters.json` if necessary.
+
 To check if the email is set and correct:
 1. Get your GitHub ID, e.g. using
    ```sh
