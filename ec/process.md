@@ -29,11 +29,11 @@ When replying to emails, make sure it's sent to all of:
   initiate the [decision process](#decision-process) to decide over whether there are enough non-conflicting endorsements.
 - If approved and the nominee submitted the candidate template form, merge the PR and leave this comment:
   ```
-  EC: We confirm the candidacy of @<USER>, no more endorsements are necessary.
+  EC: This candidate has met the endorsements requirement.
   ```
 - If approved but the nominee did not submit the candidate template form, leave a comment:
   ```
-  EC: This nominee has enough endorsements, no more are necessary. However, we have not yet received the filled-out candidate template form from the nominee.
+  EC: This candidate has met the endorsements requirement. As soon as we receive the candidate's filled-out form, this PR will be merged.
   ```
 
 ## On receiving nomination forms
