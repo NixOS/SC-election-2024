@@ -4,13 +4,7 @@ on:
   pull_request_target:
     types: [edited, opened, synchronize, reopened]
   issue_comment:
-    types: [created, edited]
-
-# This workflow changes state, we shouldn't run multiple at the same time!
-concurrency:
-  group: ${{ github.workflow }}
-  # Canceling could leave us in a bad state
-  cancel-in-progress: false
+    types: [created]
 
 jobs:
   process:

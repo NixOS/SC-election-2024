@@ -3,17 +3,31 @@ set -euo pipefail
 
 endorsersAskedFile=scripts/endorsersAsked.txt
 
-touch "$endorsersAskedFile"
+while true; do
 
-if grep "^$ENDORSER_ID$" "$endorsersAskedFile" >/dev/null; then
-  gh api \
-    --method POST \
-    "/repos/$REPOSITORY/issues/$PR_NUMBER/comments" \
-    -F "body=@-" << EOF
+  if [[ -f "$endorsersAskedFile" ]] && grep "^$ENDORSER_ID$" "$endorsersAskedFile" >/dev/null; then
+    gh api \
+      --method POST \
+      "/repos/$REPOSITORY/issues/$PR_NUMBER/comments" \
+      -F "body=@-" << EOF
 @$ENDORSER_LOGIN You've already been asked to disclose your conflicts of interest after a previous endorsement. So the endorsement is already complete if you replied to that email (sent to your [voter email address](https://github.com/$REPOSITORY/blob/main/doc/email.md)). If you never received that, check the spam folder or [get in touch with the EC](https://github.com/$REPOSITORY/tree/main?tab=readme-ov-file#election-committee-ec).
 EOF
-  exit 0
-fi
+    exit 0
+
+  else
+    echo "$ENDORSER_ID" >> "$endorsersAskedFile"
+
+    git add "$endorsersAskedFile"
+    git commit -m "Update list of endorsers asked"
+    if git push; then
+      break
+    else
+      git fetch
+      git reset --hard origin/main
+    fi
+  fi
+
+done
 
 echo "Building the list of eligible voters"
 nix-build -A voters
@@ -42,13 +56,6 @@ As such, you will only receive this request once for this election.
 
 Note that this disclosure will not be published.
 EOF
-
-echo "$ENDORSER_ID" >> "$endorsersAskedFile"
-git add "$endorsersAskedFile"
-git commit -m "Update list of endorsers asked"
-while ! git push; do
-  git pull --rebase
-done
 
 gh api \
   --method POST \
