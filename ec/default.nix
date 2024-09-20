@@ -80,8 +80,9 @@ in
               ''
           );
           github = ''
-            If you're pinged by the mention of @NixOS/voters-2024 here,
-            it means you're [automatically eligible] to vote.
+            If you got notified for this announcement,
+            it means you're [automatically eligible] to vote
+            and a member of the @NixOS/voters-2024 GitHub team.
 
             If you didn't also receive an announcement email,
             make sure to [check and optionally update your email address][email].

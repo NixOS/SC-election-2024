@@ -131,7 +131,8 @@
   nix-build ec -A announce.github --argstr discourseLink $DISCOURSE_LINK
   ```
 
-  Then post `./result` as an issue to the election repo
+  Then post `./result` as a PR to the election repo,
+  requesting a review from the voters GitHub team.
 - Directly contact the users in `usersWithoutEmailAndGitHub.txt`
 
 ## Pre-voting phase
