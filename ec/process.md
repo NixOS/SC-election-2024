@@ -27,6 +27,7 @@ When replying to emails, make sure it's sent to all of:
   ```
 - For all PRs the endorser was involved with (search for `involves:someUser`) that have at least 3 endorsements on the PR,
   initiate the [decision process](#decision-process) to decide over whether there are enough non-conflicting endorsements.
+- If approved, add the "enough endorsements" label
 - If approved and the nominee submitted the candidate template form, merge the PR and leave this comment:
   ```
   EC: This candidate has met the endorsements requirement.

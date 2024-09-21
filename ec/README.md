@@ -47,7 +47,7 @@
     - This doesn't grant any extra access, because users in the organisation will be able to interact with the repository anyways
       However it does provide context to users when they get the team invite, letting them see which repository this team is related to.
   - Set the team's slug (should be `voters-<YEAR>`) as a new repository variable named `VOTER_TEAM`
-- Ensure that a "nomination" and "question" label exists for the repository
+- Ensure that a "nomination", "question" and "enough endorsements" label exists for the repository
 - Initialise the repo from the previous election.
 
   **Important:** Before pushing, empty `voters.json` to prevent automation from inviting all those users already
