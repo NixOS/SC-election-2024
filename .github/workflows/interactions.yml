@@ -1,0 +1,40 @@
+name: "Interaction"
+
+on:
+  pull_request_target:
+    types: [opened]
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  check:
+    name: "Check"
+    runs-on: ubuntu-latest
+    # Prevent recursion
+    if: ${{ github.event_name != 'issue_comment' || github.event.comment.performed_via_github_app == null }}
+    steps:
+    - uses: actions/create-github-app-token@v1
+      id: app-token
+      with:
+        app-id: ${{ vars.APP_ID }}
+        private-key: ${{ secrets.PRIVATE_KEY }}
+    - uses: actions/checkout@v4
+    - run: |
+        if jq -e --argjson id "$SENDER_ID" 'with_entries(select(.value == $id)) == {}' voters.json; then
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/$REPOSITORY/issues/$NUMBER/comments" \
+            -f "body=@$SENDER_LOGIN: As you are currently not an eligible voter, please abstain from the election processes. You may consider [requesting an exception](https://github.com/$REPOSITORY/blob/main/doc/exception-request.md)."
+        fi
+      env:
+        GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        REPOSITORY: ${{ github.repository }}
+        SENDER_ID: ${{ github.event.sender.id }}
+        SENDER_LOGIN: ${{ github.event.sender.login }}
+        NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
+
+

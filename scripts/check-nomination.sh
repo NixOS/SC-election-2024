@@ -37,6 +37,10 @@ getNominee() {
 
 case "$EVENT" in
   pull_request_target)
+    if jq -e --argjson id "$NOMINATOR_ID" 'with_entries(select(.value == $id)) == {}' voters.json; then
+      exit 0
+    fi
+
     if [[ "$HAS_NOMINATION_LABEL" == true ]]; then
       echo "This PR is already marked as a nomination"
       exit 0
@@ -75,6 +79,10 @@ case "$EVENT" in
 
     ;;
   issue_comment)
+    if jq -e --argjson id "$ENDORSER_ID" 'with_entries(select(.value == $id)) == {}' voters.json; then
+      exit 0
+    fi
+
     if [[ "$IS_ENDORSEMENT" == true ]]; then
       scripts/endorse.sh
     fi

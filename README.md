@@ -93,7 +93,7 @@ falling back to the public GitHub account email.
 
 Matching GitHub accounts are also in `voters.json`
 and being synchronised to [@NixOS/voters-2024](https://github.com/orgs/NixOS/teams/voters-2024),
-which gives access to interact with this repository.
+which allows interacting with this repository.
 
 [^1]: The same date as [the board announcement](https://discourse.nixos.org/t/nixos-foundation-board-giving-power-to-the-community/44552) that initiated the establishment of a constitution,
       further specified as the timestamp [in a follow-up board announcement](https://discourse.nixos.org/t/board-update-2-assembly-appointment-process/45048#what-has-happened-since-the-last-updatehttpsdiscoursenixosorgtboard-update-1-starting-process-and-transparent-communication44735-2)

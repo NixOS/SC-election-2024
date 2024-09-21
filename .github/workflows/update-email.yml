@@ -26,6 +26,13 @@ jobs:
         # HEAD^2 is the PRs head commit
         head=$(git rev-parse HEAD^2)
 
+        git checkout "$base"
+        # Make sure that only people already in the file can update their entries.
+        # This also makes sure people not in the list can't add themselves!
+        if jq -e --argjson id "$AUTHOR_ID" 'with_entries(select(.value == $id)) == {}' voters.json; then
+          exit 0
+        fi
+
         # To be able to check the diff of the PR, we can't just compare base to head,
         # because that would give differences when the base branch gets new commits.
         # Instead, the merge base is what we need here,

@@ -13,6 +13,7 @@
     - Disable Webhooks
     - Permissions:
       - Repository Permissions > Pull Requests: Read and write
+      - Repository Permissions > Issues: Read and write
       - Repository Permissions > Contents: Read and write
       - Organization Permissions > Members: Read and write
   - Ensure the App is installed on the org
@@ -33,6 +34,7 @@
 - Set the SMTP password as a new repository secret with key `SMTP_PASSWORD`
 - Create a private room for the EC members to decide over things (Matrix or otherwise)
 - In the repositories Moderation options, limit interactions to repository collaborators for the maximum possible duration (should be 6 months)
+  - Note that anybody in the organisation can interact with the repository regardless, but CI will ask non-voters to abstain from doing so
 - Set up branch protection for the repo
 - Set up a GitHub team for the voters:
   - Create a team for the voters:
@@ -42,6 +44,8 @@
     - Team notifications: Enabled
   - Remove yourself as team maintainer, the automation will maintain the team
   - Add the voter team as a repository collaborator with the read role
+    - This doesn't grant any extra access, because users in the organisation will be able to interact with the repository anyways
+      However it does provide context to users when they get the team invite, letting them see which repository this team is related to.
   - Set the team's slug (should be `voters-<YEAR>`) as a new repository variable named `VOTER_TEAM`
 - Ensure that a "nomination" and "question" label exists for the repository
 - Initialise the repo from the previous election.

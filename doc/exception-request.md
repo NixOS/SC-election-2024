@@ -17,7 +17,7 @@ To request an exception:
 
 1. Send an email to <elections@nixos.org> containing:
    - Links to your contributions within the [specified time period](../README.md#eligible-voters).
-   - Include your GitHub handle if you'd also like to get access to interact with this repository
+   - Include your GitHub handle if you'd also like to interact with this repository
      to [endorse nominees](./endorse.md) or [ask questions](./qna.md)
 1. You may [activate your email](./vote.md#email-activation) in advance in case you get accepted.
 1. We might request more info from you, but eventually you will receive a reply stating whether you've been accepted.
