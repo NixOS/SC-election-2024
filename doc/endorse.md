@@ -14,4 +14,4 @@ To endorse a candidate:
    asking for disclosure of your conflicts of interest.
 1. Reply to the email with your conflicts of interest. These will be kept private.
 
-Note that you can endorse as many nominees as they like.
+Note that you can endorse as many nominees as you like.
