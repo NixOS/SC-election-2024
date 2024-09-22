@@ -6,11 +6,19 @@ Description should point out the CoI thing, that the result of the election migh
 
 Marker to clarify CoIs. Depends on CoI graph
 
+All CSS gets removed, pictures get fetched and inlined
+
 ```html
 <a href="https://github.com/NixOS/SC-election-2024/blob/main/candidates/aleksanaa.md">@aleksanaa</a>
 <a href="https://github.com/NixOS/SC-election-2024/blob/main/candidates/hsjobeki.md">@hsjobeki</a> (conflicts with @asymmetric)
 <a href="https://github.com/NixOS/SC-election-2024/blob/main/candidates/asymmetric.md">@asymmetric</a> (conflicts with @hsjobeki)
 <a href="https://github.com/NixOS/SC-election-2024/blob/main/candidates/SigmaSquadron.md">@SigmaSquadron</a>
+```
+
+With profile pics (confirmed this works pretty well)
+```html
+<img src="https://avatars.githubusercontent.com/u/101816" width="25" height="25"> asymmetric (<a href="https://github.com">candidate info</a>)
+<img src="https://avatars.githubusercontent.com/u/20525370" width="25" height="25"> infinisil (<a href="https://github.com">candidate info</a>)
 ```
 
 - Name of supervisor (you): Nix Election Committee
