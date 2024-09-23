@@ -137,6 +137,10 @@
 
   Then post `./result` as a PR to the election repo,
   requesting a review from the voters GitHub team.
+
+  Lock the PR to only collaborators (with write access),
+  so that only the EC can send further notifications using it.
+
 - Directly contact the users in `usersWithoutEmailAndGitHub.txt`
 
 ## Pre-voting phase

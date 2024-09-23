@@ -84,6 +84,9 @@ in
             it means you're [automatically eligible] to vote
             and a member of the @NixOS/voters-2024 GitHub team.
 
+            This pull request will also be used for
+            further notifications relating to this election.
+
             If you didn't also receive an announcement email,
             make sure to [check and optionally update your email address][email].
 
