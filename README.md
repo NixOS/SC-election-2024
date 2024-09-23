@@ -67,7 +67,7 @@ The election is expected to take place in a span of 6 weeks:
 
 - 2024-09-16 Mon: Election starts
 - 2024-09-29 Sun: Deadline for nominations
-- 2024-10-01 Tue: Deadline for endorsements
+- 2024-10-01 Tue: Deadline for endorsements and candidate forms
 - 2024-10-03 Thu: Deadline for candidate questions
 - 2024-10-06 Sun: Deadline for candidate answers, submitting voter exceptions and updating voter email addresses
 - 2024-10-07 Mon: Voting starts

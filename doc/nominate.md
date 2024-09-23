@@ -16,7 +16,8 @@ Be aware of the [the timeline](../README.md#timeline): The deadline for nominati
    This is easiest [directly on GitHub](https://github.com/NixOS/SC-election-2024/new/main?filename=candidates/%3Cgithub%20handle%3E.md).
    The PR title must contain your GitHub handle and PR description should be left empty.
 1. You will receive an email asking you to send back the filled-out [candidate template](../doc/candidate-template.md).
-   If you become a candidate, this document will be published and linked on the ballot.
+   You can submit (and update) this form [until Tuesday 2024-10-01](../README.md#timeline).
+   If you become a candidate, this form will be published and linked on the ballot.
 1. [Until Tuesday 2024-10-01](../README.md#timeline),
    find at least 3 other people in the [@NixOS/voters-2024 team](https://github.com/orgs/NixOS/teams/voters-2024) to [endorse](./endorse.md) you,
    such that among you and the endorsers,
