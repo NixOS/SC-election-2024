@@ -1,6 +1,7 @@
 name: Update voter team
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
