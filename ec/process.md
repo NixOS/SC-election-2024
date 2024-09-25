@@ -30,7 +30,7 @@ When replying to emails, make sure it's sent to all of:
 - If approved, add the "enough endorsements" label
 - If approved and the nominee submitted the candidate template form, merge the PR and leave this comment:
   ```
-  EC: This candidate has met the endorsements requirement.
+  EC: This candidate has met the endorsements requirement and submitted the nomination form, which makes them a valid candidate.
   ```
 - If approved but the nominee did not submit the candidate template form, leave a comment:
   ```
@@ -49,6 +49,11 @@ When replying to emails, make sure it's sent to all of:
   ```
 
 ## On receiving exception requests
+
+- Reply to the email with
+  ```
+  Thank you, we have received your exception request and will reach out again when we made the decision.
+  ```
 
 - Initiate the [decision process](#decision-process) to decide over whether they meet the [bar for eligibility](../doc/exception-request.md)
 
