@@ -102,20 +102,20 @@
   ```
 - Announce it to discourse:
   ```
-  nix-build ec -A announce.discourse
+  nix-build ec -A kickoff.discourse
   ```
 
   Then post the contents of `result` to Discourse
 - Announce it on the website, linking to discourse:
   ```
-  nix-build ec -A announce.website --argstr discourseLink $DISCOURSE_LINK
+  nix-build ec -A kickoff.website --argstr discourseLink $DISCOURSE_LINK
   ```
 
   Then make a PR against [the website announcements](https://github.com/NixOS/nixos-homepage/tree/main/src/content/blog/announcements) and ping somebody from the marketing team to merge it.
 - Push the generated `voters.json` to start triggering team additions
 - Send the emails (needs `SMTP_PASSWORD` set):
   ```
-  nix-build ec -A announce.email --argstr discourseLink $DISCOURSE_LINK
+  nix-build ec -A kickoff.email --argstr discourseLink $DISCOURSE_LINK
   ./result
   ```
 
@@ -132,7 +132,7 @@
   - All emails are sent
 
   ```
-  nix-build ec -A announce.github --argstr discourseLink $DISCOURSE_LINK
+  nix-build ec -A kickoff.github --argstr discourseLink $DISCOURSE_LINK
   ```
 
   Then post `./result` as a PR to the election repo,
@@ -147,6 +147,37 @@
 
 - See [this process](./process.md)
 - Organise the Q&A
+
+## 2024-09-27 Fri: Nomination reminder
+
+Before the weekend with the nomination deadline, send a reminder:
+
+- On discourse:
+  ```
+  nix-build ec -A reminder1.discourse
+  ```
+
+  Then post the contents of `result` to Discourse
+  in the same thread as the original kickoff announcement.
+- On GitHub:
+
+  ```
+  nix-build ec -A reminder1.github --argstr discourseLink $DISCOURSE_LINK
+  ```
+
+  Then post `./result` into the same PR as the original announcement.
+- Via email (needs `SMTP_PASSWORD` set):
+  ```
+  nix-build ec -A reminder1.email --argstr discourseLink $DISCOURSE_LINK
+  ./result
+  ```
+
+  If any fail to send, resume using
+  ```
+  ./result --resume
+  ```
+
+  You can view failed sends in `jobs.log`, but you might also get mail delivery failure responses.
 
 ## Starting the voting phase
 - Determine which pairs of candidates share the same conflict of interest
@@ -170,6 +201,5 @@ In case somebody is violating the Q&A rules, their access to the repo can be rem
   - Tell them in the PR what they can do now
 
 Sending reminders:
-- 2024-09-23 Monday: (Reminder)
 - 2024-09-30: Finalise the list of candidates, publish their documents
 - 2024-10-14 Monday: (vote reminder)
