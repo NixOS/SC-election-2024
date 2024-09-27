@@ -34,7 +34,11 @@ When replying to emails, make sure it's sent to all of:
   ```
 - If approved but the nominee did not submit the candidate template form, leave a comment:
   ```
-  EC: This candidate has met the endorsements requirement. As soon as we receive the candidate's filled-out form, this PR will be merged.
+  EC: This nominee has met the endorsements requirement. As soon as we receive their filled-out candidate form, this PR will be merged, making them a valid candidate.
+  ```
+
+  ```
+  EC: This nominee has met the endorsements requirement. In case they accept the nomination and we receive their filled-out candidate form, this PR will be merged, making them a valid candidate.
   ```
 
 ## On receiving nomination forms
