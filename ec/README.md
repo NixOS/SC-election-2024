@@ -187,6 +187,7 @@ Before the weekend with the nomination deadline, send a reminder:
   nix-build ec -A unconfirmed.needsToSubmitFormAndNeedsMoreEndorsements
   ./result $GITHUB_HANDLE $NOMINATION_PR
   ```
+- Optionally PM the nominees via other means (e.g. Matrix) in case the above means fail.
 
 ## Starting the voting phase
 - Determine which pairs of candidates share the same conflict of interest
