@@ -306,4 +306,99 @@ in
         [Anywhere on Earth]: https://en.wikipedia.org/wiki/Anywhere_on_Earth
       '';
   };
+
+  unconfirmed =
+    let
+      make = title: content:
+        let
+          contentFile = builtins.toFile "content" content;
+        in
+        pkgs.writeShellScript "send" ''
+          set -euo pipefail
+          login=$1
+          pr=$2
+          id=$(gh api /users/"$login" --cache=1000h --jq .id)
+          to=$(jq -r --argjson id "$id" 'with_entries(select(.value == $id)) | keys[]' ${../voters.json})
+
+          sed -e "s/@GITHUB_LOGIN@/$login/g" -e "s!@NOMINATION@!$pr!g" "${contentFile}" |
+            ${sendEmail} "$to" ${lib.escapeShellArg title}
+        '';
+    in {
+      needsToAccept = make "Nix SC Election 2024: Tuesday deadline to accept your nomination" ''
+        Hello, @@GITHUB_LOGIN@
+
+        You've [been nominated][nomination] for the Nix Steering Committee,
+        and have received enough endorsements to be able to run,
+        but have neither confirmed nor rejected your candidacy.
+
+        [nomination]: @NOMINATION@
+
+        If you'd like to run for the Nix Steering Committee,
+        please accept the nomination **until this Tuesday** by:
+        - Posting a comment indicating so in the [nomination PR][nomination].
+        - Replying to this email with the filled-out candidate template below.
+          This will be published and linked on the ballot.
+
+        You've also been reminded of this [on GitHub][issue].
+
+        [issue]: https://github.com/NixOS/SC-election-2024/issues/103
+
+        If you're not interested, you can ignore this email.
+
+        ---
+
+        ${builtins.readFile ../doc/candidate-template.md}
+      '';
+      needsToSubmitFormAndNeedsMoreEndorsements = make "Nix SC Election 2024: Tuesday deadline to meet candidate criteria" ''
+        Hello, @@GITHUB_LOGIN@
+
+        To confirm [your nomination][nomination] for the Nix Steering Committee,
+        you need the following **until this Tuesday**:
+        - Reply to this email with the filled-out candidate template below.
+          This will be published and linked on the ballot.
+        - Get more [eligible voters] to endorse you in your [nomination PR][nomination].
+
+        [nomination]: @NOMINATION@
+        [eligible voters]: ${repo}?tab=readme-ov-file#eligible-voters
+
+        You've also been reminded of this [on GitHub][issue].
+
+        [issue]: https://github.com/NixOS/SC-election-2024/issues/103
+
+        ---
+
+        ${builtins.readFile ../doc/candidate-template.md}
+      '';
+      needsToSubmitForm = make "Nix SC Election 2024: Tuesday deadline to submit candidate form" ''
+        Hello, @@GITHUB_LOGIN@
+
+        To confirm [your nomination][nomination] for the Nix Steering Committee,
+        you need to reply to this email with the filled-out candidate template below
+        **until this Tuesday**. This will be published and linked on the ballot.
+
+        [nomination]: @NOMINATION@
+
+        You've also been reminded of this [on GitHub][issue].
+
+        [issue]: https://github.com/NixOS/SC-election-2024/issues/103
+
+        ---
+
+        ${builtins.readFile ../doc/candidate-template.md}
+      '';
+      needsMoreEndorsements = make "Nix SC Election 2024: Tuesday deadline to get enough endorsements" ''
+        Hello, @@GITHUB_LOGIN@
+
+        To confirm [your nomination][nomination] for the Nix Steering Committee,
+        you need to get more [eligible voters] to endorse you in
+        your [nomination PR][nomination] **until this Tuesday**.
+
+        [nomination]: @NOMINATION@
+        [eligible voters]: ${repo}?tab=readme-ov-file#eligible-voters
+
+        You've also been reminded of this [on GitHub][issue].
+
+        [issue]: https://github.com/NixOS/SC-election-2024/issues/103
+      '';
+    };
 }

@@ -179,6 +179,15 @@ Before the weekend with the nomination deadline, send a reminder:
 
   You can view failed sends in `jobs.log`, but you might also get mail delivery failure responses.
 
+## 2024-09-30 Mon: Reminder for nominees
+
+- Open an issue [like this](https://github.com/NixOS/SC-election-2024/issues/103)
+- Send emails to unconfirmed candidates using e.g.
+  ```
+  nix-build ec -A unconfirmed.needsToSubmitFormAndNeedsMoreEndorsements
+  ./result $GITHUB_HANDLE $NOMINATION_PR
+  ```
+
 ## Starting the voting phase
 - Determine which pairs of candidates share the same conflict of interest
 
