@@ -141,6 +141,8 @@
   Lock the PR to only collaborators (with write access),
   so that only the EC can send further notifications using it.
 
+  Then, remove the teams review request again, so that it doesn't stick around in users "to review" column without being able to review it (since it's locked)
+
 - Directly contact the users in `usersWithoutEmailAndGitHub.txt`
 
 ## Pre-voting phase
