@@ -71,7 +71,7 @@ copyleft licenses, if it resulted in fairer working conditions.
 #### What I have done:
 
 - I am a former member of the documentation team, where I helped out transitioning to
-  nix.dev as well as putting out some tutorials (e.g. the [module system deep dive](https://nix.dev/tutorials/module-system/module-system.html)).
+  nix.dev as well as putting out some tutorials (e.g. the [module system deep dive](https://nix.dev/tutorials/module-system/deep-dive)).
 - I maintain [20 packages](https://repology.org/projects/?maintainer=lorenzo@mailbox.org&inrepo=nix_stable_24_05) and am a nixpkgs committer
 - I was shepherd-lead on [one RFC](https://github.com/NixOS/rfcs/blob/master/rfcs/0089-collect-non-source-package-meta.md?plain=1), shepherd on [two](https://github.com/NixOS/rfcs/blob/master/rfcs/0052-dynamic-ids.md) [more](https://github.com/NixOS/rfcs/blob/master/rfcs/0145-doc-strings.md)
 - I am in the [NixOS RFC SC](https://nixos.org/community/teams/rfc-steering-committee/)
