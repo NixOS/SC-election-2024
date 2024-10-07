@@ -46,14 +46,14 @@ let
     {
       discourse = nowrap "discourse.md" (announcement "discourse" (throw "unused") (throw "unused"));
       github =
-        { discourseLink }: nowrap "github.md" (announcement "github" (throw "unused") discourseLink);
+        { discourseLink ? throw "discourseLink: unused" }: nowrap "github.md" (announcement "github" (throw "unused") discourseLink);
 
       website =
-        { discourseLink }:
+        { discourseLink ? throw "discourseLink: unused" }:
         pkgs.writeText "website.md" (announcement "website" (throw "unused") discourseLink);
 
       email =
-        { discourseLink }:
+        { discourseLink ? throw "discourseLink: unused" }:
         let
           emailLoginExists = builtins.toFile "email-login-exists" (announcement "email" true discourseLink);
           emailLoginMissing = builtins.toFile "email-login-missing" (
@@ -401,4 +401,61 @@ in
         [issue]: https://github.com/NixOS/SC-election-2024/issues/103
       '';
     };
+
+  reminder2 = buildAnnouncement {
+    title = "Reminder for the Nix Steering Committee Election 2024";
+    announcement =
+      platform: loginExists: discourseLink:
+      ''
+        We've now reached the end of the nomination phase, ending up with 25 confirmed candidates!
+
+        All candidate forms have now been published together:
+
+        ${repo}/tree/main/candidates
+
+        We're also confirming that there are no same conflicts of interests
+        among the candidates, meaning that there will be no further need to take
+        the [constitutional conflict of interest restrictions][cois] into account.
+
+        [cois]: https://github.com/NixOS/nix-constitutional-assembly/blob/main/constitution.md#conflict-of-interest-coi-balance 
+
+        ### Candidate Q&A deadline
+
+        Until **this Thursday**, eligible voters can still
+        [ask questions][ask] to candidates, and are encouraged to do so.
+        Note that questions can also be based on the candidates forms.
+
+        [ask]: https://github.com/NixOS/SC-election-2024/blob/main/doc/qna.md#if-you-want-to-ask-a-question
+
+        Until **this Sunday**, candidates can [answer questions][answer] they'd like to answer.
+
+        [answer]: https://github.com/NixOS/SC-election-2024/blob/main/doc/qna.md#if-you-are-a-candidatenominee-and-want-to-answer-questions
+
+        ${
+          if platform == "discourse" then
+            ''
+              ### Voter exceptions deadline
+
+              Until **this Sunday**, [voter exceptions][exceptions] can be requested
+              if you're not already an [eligible voter][eligible].
+
+              [exceptions]: ${p ../doc/exception-request.md}
+              [eligible]: ${repo}/tree/main?tab=readme-ov-file#eligible-voters
+
+            ''
+          else
+            ''
+              ### Email update deadline
+
+              Until **this Sunday** you can [check and optionally update your email address][email].
+              **You will not be able to vote if you cannot receive emails on the registered address**.
+
+              [email]: ${p ../doc/email.md}
+
+            ''
+        }
+        The voting phase **starts on Monday** and will last for
+        almost 2 weeks until 2024-10-20 Sun.
+      '';
+  };
 }

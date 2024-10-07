@@ -148,7 +148,6 @@
 ## Pre-voting phase
 
 - See [this process](./process.md)
-- Organise the Q&A
 
 ## 2024-09-27 Fri: Nomination reminder
 
@@ -191,8 +190,35 @@ Before the weekend with the nomination deadline, send a reminder:
   ```
 - Optionally PM the nominees via other means (e.g. Matrix) in case the above means fail.
 
+## 2024-10-02 Wed: Candidate finalisation and reminder
+
+- Close all PRs of candidates that didn't meet the criteria
+
+- Decide with the EC on which (if any) candidates have a conflict of interest
+  and update the source for `reminder2` with the result.
+
+- Copy all candidate forms for confirmed candidates from the internal EC repo into this repo, the
+
+- Delete the internal EC repo.
+
+- Send a reminder for the Q&A, updating voter emails and requesting exceptions:
+
+  - On discourse:
+    ```
+    nix-build ec -A reminder2.discourse
+    ```
+
+    Then post the contents of `result` to Discourse
+    in the same thread as the original kickoff announcement.
+  - On GitHub:
+
+    ```
+    nix-build ec -A reminder2.github
+    ```
+
+    Then post `./result` into the same PR as the original announcement.
+
 ## Starting the voting phase
-- Determine which pairs of candidates share the same conflict of interest
 
 ## Post-voting phase
 
