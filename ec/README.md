@@ -221,6 +221,11 @@ Before the weekend with the nomination deadline, send a reminder:
 
 ## Starting the voting phase
 
+- Push Q&A to candidate forms
+- Add the voters via CIVS
+- Send the announcement
+- Archive the repo
+
 ## Post-voting phase
 
 ## Misc

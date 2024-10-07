@@ -27,6 +27,14 @@ let
     + builtins.readFile ../scripts/send-email.sh
   );
 
+  mdToHtml = md: pkgs.runCommand "html" {
+    nativeBuildInputs = [ pkgs.pandoc ];
+    passAsFile = [ "md" ];
+    inherit md;
+  } ''
+    pandoc -f gfm -t html "$mdPath" -o $out
+  '';
+
   buildAnnouncement =
     { announcement, title }:
     let
@@ -458,4 +466,87 @@ in
         almost 2 weeks until 2024-10-20 Sun.
       '';
   };
+
+  civs = {
+    description = mdToHtml ''
+      In this election we choose 7 people for the first Nix Steering Committee.
+      See [the announcement](https://discourse.nixos.org/t/nix-steering-committee-election-2024/52232) for more information.
+
+      Please inform yourself about the candidates by looking at [their candidate info documents](${p ../candidates}), which include:
+      - Basic contact info
+      - A conflict of interest disclosure
+      - A statement on their motivation to be on the Steering Committee
+      - All Q&A questions answered by the candidate, followed by ones not answered
+      
+      Each candidate's individual info document is also linked on the ballot below.
+
+      If you have a question, please contact the [Election Committee](${repo}?tab=readme-ov-file#election-committee-ec).
+    '';
+
+    candidates = pkgs.writeScript "candidates.sh" /* bash */ ''
+      cd ${../candidates}
+      for file in *.md; do
+        handle=''${file%%.md}
+        user=$(gh api "/users/$handle")
+        handle=$(jq -r .login <<< "$user")
+        id=$(jq -r .id <<< "$user")
+        echo "<img src=\"https://avatars.githubusercontent.com/u/$id\" width=\"25\" height=\"25\"> $handle (<a href=\"${repo}/blob/main/candidates/$file\">candidate info</a>)"
+      done
+    '';
+  };
+
+  voteStart = buildAnnouncement {
+    title = "Voting starts for the Nix Steering Committee Election 2024";
+    announcement =
+      platform: loginExists: discourseLink:
+      ''
+        Candidates for the first Nix Steering Committee have now been selected,
+        and the voting phase of the election has begun.
+        The [list of voters][voters] is now final,
+        and the deadline for exception requests and updating emails has passed.
+
+        [voters]: https://github.com/NixOS/SC-election-2024/blob/main/voters.json
+
+        **You must cast your vote by 2024-10-20 Sun** in
+        [Anywhere on Earth time](https://en.wikipedia.org/wiki/Anywhere_on_Earth),
+        meaning as long as it is still the given day anywhere on the planet
+        (i.e. at the end of that day in UTC-12).
+        After the poll is closed, votes will not be accepted for any reason.
+
+        We will send a reminder to vote on 2024-10-18 Fri.
+
+        ### The Candidates
+
+        Please inform yourself about the candidates by looking at their
+        [candidate info documents][candidates], which include:
+
+        [candidates]: https://github.com/NixOS/SC-election-2024/tree/main/candidates
+
+        - Basic contact info
+        - A conflict of interest disclosure
+        - A statement on their motivation to be on the Steering Committee
+        - All Q&A questions answered by the candidate, followed by ones not answered
+
+        Each candidate's individual info document is also linked on the ballot.
+
+        ### How to vote
+
+        To be able to vote, you need to activate your email in the
+        [`voters.json` file][voters]
+        with CIVS by following the steps on the
+        [CIVS Activate User page](https://civs1.civs.us/cgi-bin/opt_in.pl).
+
+        If you already did so, you should've already received an email
+        from <civs@cornell.edu> with a link to the poll.
+
+        If you're only activating your email now, you will get a link to
+        the poll in the activation page under "Pending poll invitations".
+        If you missed this, you can go through the email activation again.
+
+        If you have a question, please contact the [Election Committee][ec].
+
+        [ec]: https://github.com/nixos/SC-election-2024?tab=readme-ov-file#election-committee-ec
+      '';
+  };
+
 }
