@@ -66,7 +66,7 @@ When replying to emails, make sure it's sent to all of:
   - Add their email (and GitHub user if they provided one) to the [`voters.json` file](../voters.json) and commit it
   - Reply with
     ```
-    Thank you, we are approving your exception request, you have been added to the voters list.
+    We are approving your exception request, you have been added to the voters list.
     ```
 - If rejected, reply with
   ```
@@ -102,3 +102,9 @@ For subsequent rule violations, access to the repo may be revoked:
    To actually revoke access, they need to be removed from the NixOS GitHub organisation.
    This should only be done if it doesn't revoke any other privileges,
    such as write access to repositories or removals from other teams.
+
+## On a missed GitHub org invite
+
+1. Remove their GitHub id from [`invited.txt`](../scripts/invited.txt).
+2. Go to the [`voter-team.yml` workflow](https://github.com/NixOS/SC-election-2024/actions/workflows/voter-team.yml)
+3. Click "Run workflow" (and confirm it), this will trigger sending of another invite.
