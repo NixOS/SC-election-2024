@@ -1,4 +1,3 @@
-- Make sure people know the reason why somebody didn't become a candidate
 - Maybe no need to use different repos for every election, can just create separate branches
   - This way we also kind of have a canonical source for voter ids, people don't need to update it every year!
   - Although, we need to regenerate the voters.json _without_ overriding older entries then

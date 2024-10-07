@@ -193,6 +193,7 @@ Before the weekend with the nomination deadline, send a reminder:
 ## 2024-10-02 Wed: Candidate finalisation and reminder
 
 - Close all PRs of candidates that didn't meet the criteria
+  with a comment mentioning the unmet criteria.
 
 - Decide with the EC on which (if any) candidates have a conflict of interest
   and update the source for `reminder2` with the result.
