@@ -76,3 +76,29 @@ When replying to emails, make sure it's sent to all of:
 ## On other emails
 
 Forwards it as a message to the internal EC channel to decide what to do
+
+## On a suspected rule violation
+
+Only if the rule violation is subjective, invoke the [decision process](#decision-process)
+to decide whether it was violated and the resulting action to take.
+For objective rule violations, EC members can act independently.
+
+If the rule violation is objective:
+1. Send an email to the respective user containing:
+   - That their comment has been deleted
+   - The rule that was violated
+   - The contents of their violating issue/comment
+   - Suggested alternatives
+1. Close the issue or delete the comment
+
+For subsequent rule violations, access to the repo may be revoked:
+1. Replace the respective users GitHub id in `voters.json` with
+   ```
+   "<email>": "@<handle>: Revoked repository access due to rule violations"
+   ```
+
+   Make sure to leave the email as is, the user is still allowed to vote.
+1. The above only removes the user from the voters GitHub team.
+   To actually revoke access, they need to be removed from the NixOS GitHub organisation.
+   This should only be done if it doesn't revoke any other privileges,
+   such as write access to repositories or removals from other teams.
