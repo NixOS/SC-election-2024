@@ -224,20 +224,7 @@ Before the weekend with the nomination deadline, send a reminder:
 
 ## Misc
 
-- Create the candidate documents
-- Making announcements
 - Running CIVS
-- Unsubscribe people
-
-In case somebody is violating the Q&A rules, their access to the repo can be removed by setting their id in `voters.json` to `null`
-
-- Write a script to check exception requests or maybe a triggerable CI action.
-  - Invite the person to the repo
-  - Create a PR to add them to the voters.json, and ping them in the description
-  - They need to upvote the PR to get accepted
-  - Don't mention the user in the commit, because it's confusing to receive an email for that
-  - Tell them in the PR what they can do now
 
 Sending reminders:
-- 2024-09-30: Finalise the list of candidates, publish their documents
-- 2024-10-14 Monday: (vote reminder)
+- 2024-10-17 Friday: (vote reminder)
