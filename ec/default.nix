@@ -107,13 +107,13 @@ let
             # Show progress with a bar
             --bar
             # Halt as soon as 1 job failed, wait for the running jobs to finish
-            --halt soon,fail=1
+            --halt soon,fail=10
             # Store command results
             --joblog jobs.log
             # Only start a new job every second
-            --delay 0.2
+            --delay 0.1
             # Run up to 10 jobs together
-            -j10
+            -j20
             # Silence the citation message
             --will-cite
           )
@@ -549,4 +549,49 @@ in
       '';
   };
 
+  corruption = buildAnnouncement {
+    title = "Nix SC Election 2024: CIVS poll corruption";
+    announcement =
+      platform: loginExists: discourseLink:
+      ''
+        Unfortunately the CIVS poll we used for the election got corrupted
+        due to technical issues out of our control.
+        A symptom of the problem is that the system appears to
+        allow voters to vote multiple times.
+        As such we are invalidating the existing poll,
+        please hold off voting for a new future poll instead.
+        Already submitted ballots appear to be irrecoverable.
+        We apologise for the inconvenience.
+
+        According to the CIVS admin,
+        a data corruption like that has never been seen before.
+        The [CIVS FAQ][faq][^1] implies this to be
+        first time data has been lost since 2006.
+        As far as we understand, the Berkley DB files got corrupted
+        in such a way that at least the table of the voters who have voted
+        is not handled correctly anymore.
+
+        [faq]: https://civs1.civs.us/faq.html
+        [^1]: [Archive link](http://web.archive.org/web/20240926133351/https://civs1.civs.us/faq.html)
+
+        We have no insight into the CIVS server,
+        but are in contact with the admin to try figure out
+        what went went wrong in more detail and how to best proceed.
+        We will follow up with another announcement no later than this Friday.
+
+        ## Email updates possible again for now
+
+        As a consequence of the above,
+        we can again allow email updates until the new poll is started.
+        To do so, follow [these steps][email].
+
+        [email]: ${p ../doc/email.md}
+
+        ## The candidates
+
+        You can also still prepare yourself to vote by looking at the [candidates].
+
+        [candidates]: ${p ../candidates}
+      '';
+  };
 }
