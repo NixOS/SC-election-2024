@@ -1,3 +1,6 @@
+> [!Note]
+> We're having data corruption problems with the election platform, see [the announcement](https://discourse.nixos.org/t/nix-steering-committee-election-2024/52232/15)
+
 # Nix Steering Committee (SC) Election 2024
 
 This repository contains all information regarding the first SC election in 2024.
@@ -69,10 +72,12 @@ The election is expected to take place in a span of 6 weeks:
 - 2024-09-29 Sun: Deadline for nominations
 - 2024-10-01 Tue: Deadline for endorsements and candidate forms
 - 2024-10-03 Thu: Deadline for candidate questions
-- 2024-10-06 Sun: Deadline for candidate answers, submitting voter exceptions and updating voter email addresses
-- 2024-10-07 Mon: Voting starts
-- 2024-10-20 Sun: Voting ends
-- 2024-10-23 Wed: Results announced
+- 2024-10-06 Sun: Deadline for candidate answers, submitting voter exceptions
+- 2024-10-07 Mon: Voting started, but the poll [corrupted](https://discourse.nixos.org/t/nix-steering-committee-election-2024/52232/15)
+- 2024-10-?? ???: Deadline for updating voter email addresses
+- 2024-10-?? ???: Voting starts the second
+- 2024-??-?? ???: Voting ends
+- 2024-??-?? ???: Results announced
 
 Deadlines are in [Anywhere on Earth](https://en.wikipedia.org/wiki/Anywhere_on_Earth) time,
 meaning submissions are still valid as long as it is still the given day anywhere on the planet
