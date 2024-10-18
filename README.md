@@ -84,8 +84,6 @@ Deadlines are in [Anywhere on Earth](https://en.wikipedia.org/wiki/Anywhere_on_E
 meaning submissions are still valid as long as it is still the given day anywhere on the planet
 (i.e. at the end of that day in UTC-12).
 
-With this timeline, the first elected SC will be known just in time for [NixCon 2024](https://2024.nixcon.org/) in Berlin.
-
 ## Eligible voters
 
 Currently eligible voters are listed in [`voters.json`](./voters.json)
