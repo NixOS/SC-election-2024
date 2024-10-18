@@ -1,0 +1,13 @@
+{
+  "mp2e@archlinux.us": "Relay Access Denied, probably all mails failed to be delivered, was a committer, no authored commits in the last 4 years, only merged 6 PRs, last one in July 2020",
+  "aluisio@aasg.name": "relay access denied, passed away",
+  "anton.latuka+nixpkgs@gmail.com": "many have + gmail addresses, they all work, except this one, recipient address not accepted by the server",
+  "edmund.wu@protonmail.com": "emails never succeeded, recipient address edmund.wu@protonmail.com not accepted by the server",
+  "kc@flyingcircus.io": "recipient address is not accepted by the server, likely not working there anymore",
+  "s.vanderburg@tudelft.nl": "Recipient address rejected: Access denied, personal website says was at tudelft, and now working at Mendix",
+  "tobias.bora.list@gmail.com": "recipient address tobias.bora.list@gmail.com not accepted by the server, all emails failed to send",
+  "43ngvg@masqt.com": "no MX record, and many bounce errors: Temporary failure in name resolution",
+  "avn@avnik.info": "ImprovMX had troubles connecting to mail.avnik.info. Reason: timed out - In 25117ms, does have a different email on GitHub though",
+  "nixos@oluceps.uk": "recipient address nixos@oluceps.uk not accepted by the server, no mails seemed to have been delivered successfully",
+  "s@muel.gr": "no MX record, Name or service not known, almost no GitHub"
+}
