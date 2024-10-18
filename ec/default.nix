@@ -594,4 +594,25 @@ in
         [candidates]: ${p ../candidates}
       '';
   };
+
+  restart = buildAnnouncement {
+    title = throw "unused";
+    announcement =
+      platform: loginExists: discourseLink:
+      ''
+        Because we don't have sufficient confidence in the CIVS problem not reoccurring again, we have decided to use [OpaVote](https://opavote.com/) to collect the ballots instead. We're still going to use CIVS tallying of the results, so that they won't get influenced based on how ballots are collected. Note that OpaVote (like CIVS) allows the voters to get an anonymised list of all the ballots cast, and we will enable this after the election.
+
+        Unlike CIVS, OpaVote doesn't require a separate activation step for emails, so all eligible voters with email addresses considered valid will be sent emails with the voting link from <noreply@opavote.com>, as well as voting reminders every 3 days.
+
+        **You must cast your vote by 2024-11-03 23:59:59 Sun** in [Anywhere on Earth time](https://en.wikipedia.org/wiki/Anywhere_on_Earth), meaning as long as it is still the given day anywhere on the planet (i.e. at the end of that day in UTC-12). After the poll is closed, votes will not be accepted for any reason.
+
+        _Note that, unlike CIVS, OpaVote **does not** allow to correct your ballot once cast! Furthermore, you cannot rank two candidates the same, except for unranked candidates. We will treat all the unranked candidates as tied for the last place when tallying._
+
+        ## Removed email addresses and how to set them
+
+        Because [OpaVote's terms](https://opavote.com/terms) has potential sanctions for undeliverable emails and doesn't have a separate email activation step like CIVS, we have [removed](https://github.com/NixOS/SC-election-2024/commit/928be359ebbabc7ddad1457e0a63981695247685) some voter email addresses that couldn't be reached.
+
+        We cannot change the voter emails where the voting link has been delivered, but for missing and bouncing addresses, users can still [update their email address](https://github.com/nix-constitutional-assembly-2024/SC-election-2024/blob/main/doc/email.md). Everybody without an email address in `voters.json` will be notified once more.
+      '';
+  };
 }
