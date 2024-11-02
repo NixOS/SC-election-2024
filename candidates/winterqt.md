@@ -36,7 +36,9 @@ I'm an employee of [OrbStack](https://orbstack.dev), a company that develops a p
 
 I believe that, as of 2024, Nixpkgs/NixOS is *the* best way to deploy development environments, servers, and any other sort of software configuration. In light of these recent governance issues, I have evaluated other options, and I've come to the conclusion that no other solution comes close to what we've achieved as a community. (Not even Guix!)
 
-I want to try one last time to make a difference in a community that I've loved being involved in for the past (almost) four years. As briefly mentioned before, I've poured lots of energy into trying to fix various issues, to the point where it completely burned me out from interacting with the project. I believe that, if this governance model succeeds (and I think it has a good chance of doing so), that we can make the state of affairs better than they've ever been.## Q&A
+I want to try one last time to make a difference in a community that I've loved being involved in for the past (almost) four years. As briefly mentioned before, I've poured lots of energy into trying to fix various issues, to the point where it completely burned me out from interacting with the project. I believe that, if this governance model succeeds (and I think it has a good chance of doing so), that we can make the state of affairs better than they've ever been.
+
+## Q&A
 
 ### Should Nix transition away from GitHub to a self-hosted git forge? ([link](https://github.com/NixOS/SC-election-2024/issues/18))
 
