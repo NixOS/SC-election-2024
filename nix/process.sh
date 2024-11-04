@@ -31,7 +31,7 @@ while read -ra ballot; do
 
     declare -a candidateRanks=()
     for candidate in $(seq "${candidateCount}"); do
-      candidateRanks[candidate]=$candidateCount
+      candidateRanks[candidate]=1
     done
 
     # Inverts the ranking, see top of file!
