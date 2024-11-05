@@ -13,6 +13,9 @@
 
 set -euo pipefail
 
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' exit
+
 read -r candidateCount _seatCount;
 echo "Candidate count: $candidateCount" >&2
 while read -ra ballot; do
@@ -40,11 +43,15 @@ while read -ra ballot; do
       candidateRanks[candidate]=$(( rank-- ))
     done
 
-    echo "${ballot[@]}" "->" "${candidateRanks[@]}" >&2
-    echo "${candidateRanks[@]}"
+      echo "${ballot[@]}" "->" "${candidateRanks[@]}" >&2
+    (
+      IFS=,
+      echo "${candidateRanks[*]}"
+    )
   fi
-done
+done | sort -n > "$tmp/sorted"
 
+candidates=()
 echo "Candidates (fill this into the candidate field):" >&2
 for candidate in $(seq "${candidateCount}"); do
   read -r name
@@ -52,11 +59,17 @@ for candidate in $(seq "${candidateCount}"); do
   name=${name#\"}
   if [[ "$name" == "0" ]]; then
     # For some reason CIVS doesn't store candidates named "0"
-    echo "0.0" >&2
-  else
-    echo "$name" >&2
+    name="0.0"
   fi
+  echo "$name" >&2
+  candidates+=("$name")
 done
+
+(
+  IFS=,
+  echo "#" "${candidates[*]}"
+)
+cat "$tmp/sorted"
 
 read -r title
 echo "Title: $title" >&2

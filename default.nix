@@ -28,5 +28,7 @@ rec {
   # Verifies the voters.json and returns a derivation with the emails/github ids
   voters = import ./nix/voters.nix { inherit pkgs; };
 
+  verifyBallotMatch = import ./nix/verify-ballot-match.nix { inherit pkgs; };
+
   inherit pkgs;
 }
