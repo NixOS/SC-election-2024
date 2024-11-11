@@ -1,5 +1,7 @@
 # How to be the EC
 
+This document gives more-or-less complete docs on how the first EC ran this election.
+
 ## Ahead-of-time preparations
 
 ### For a GitHub org owner
@@ -22,7 +24,8 @@
   - Generate a private key for the App and set it as a new repository secret named `PRIVATE_KEY`
 
 ### For the admins of the `nixos.org` mailserver
-- Set up `elections@nixos.org` as an alias for the EC members addresses
+- Set up `elections@nixos.org` as an alias for the EC members addresses.
+  Could also be `election<YEAR>@nixos.org` going forward.
 - Send the mail server, SMTP user and password to the EC members, potentially regenerating the password to revoke access to previous EC members
 - Make sure that you have a good enough email setup for sending many emails
 
@@ -52,8 +55,9 @@
 
   **Important:** Before pushing, empty `voters.json` to prevent automation from inviting all those users already
 
-  - Remove or empty `scripts/invited.txt`
-  - Remove `usersWithoutEmailAndGitHub.txt`
+  - Remove or empty `scripts/invited.txt` and `scripts/endorsersAsked.txt`
+  - Remove `removed-voters-due-to-bounced-emails.json`
+  - Remove `opavote_ballots.blt` and `civs_ballots.csv`
   - Empty `candidates`
   - Ensure the repo reflects the current version of the Nix Governance Constitution
   - Check that the voting platform is still functional and find an alternative otherwise
@@ -85,9 +89,58 @@
 - Enable notifications for the public Matrix room
 - Subscribe to all activity on the election repository
 
+## Announcements
+
+The [`ec/default.nix`](./default.nix) file contains code to automate announcements, able to take care of:
+- Sending hundreds of personalised emails to voters.
+- Ensuring proper formatting on GitHub and Discourse (where single newlines cause line breaks).
+- Ease linking to repository files.
+- Customise announcements based on the platform.
+
+In general the workflow is always:
+- Announce on Discourse with (`$NAME` is the name of the announcement, use auto-complete):
+  ```
+  nix-build ec -A $NAME.discourse
+  ```
+
+  Then post the contents of `result` to Discourse, potentially as a reply to a previous announcement.
+- For more important announcements, post it to the website, linking to Discourse, with:
+  ```
+  nix-build ec -A $NAME.website --argstr discourseLink $DISCOURSE_LINK
+  ```
+
+  Then make a PR against [the website announcements](https://github.com/NixOS/nixos-homepage/tree/main/src/content/blog/announcements), ensuring that CI passes and ping somebody from the marketing team to merge it.
+- Send emails to voters (needs `SMTP_PASSWORD` set):
+  ```
+  nix-build ec -A $NAME.email --argstr discourseLink $DISCOURSE_LINK
+  ./result
+  ```
+
+  If 10 emails fail to send, it stops, but it can be resumed with
+  ```
+  ./result --resume
+  ```
+
+  You can view failed sends in `jobs.log`, but you might also get delayed (up to ~1 day) mail delivery failure responses.
+
+  Reach out to people whose email bounced by pinging them on GitHub and optionally removing their email from the `voters.json` file.
+
+- Announce it on GitHub:
+  ```
+  nix-build ec -A $NAME.github --argstr discourseLink $DISCOURSE_LINK
+  ```
+
+  Then post `./result` as a PR (or a reply to an existing PR) to the election repo,
+  requesting a review from the voters GitHub team (which will ask you to explicitly confirm to send a notification to so many users).
+
+  Lock the PR to only collaborators (with write access),
+  so that only the EC can send further notifications using it.
+
+  Then, remove the teams review request again, so that it doesn't stick around in users "to review" column without being able to review it (since it's locked)
+
 ## Kick-off
 - Update the blocked users list:
-  Get the GitHub ids using
+  Have an org admin get the GitHub ids using
   ```
   gh api /orgs/NixOS/blocks --jq '.[].id'
   ```
@@ -100,97 +153,34 @@
   nix-build -A generateVoters
   ./result
   ```
-- Announce it to discourse:
-  ```
-  nix-build ec -A kickoff.discourse
-  ```
-
-  Then post the contents of `result` to Discourse
-- Announce it on the website, linking to discourse:
-  ```
-  nix-build ec -A kickoff.website --argstr discourseLink $DISCOURSE_LINK
-  ```
-
-  Then make a PR against [the website announcements](https://github.com/NixOS/nixos-homepage/tree/main/src/content/blog/announcements) and ping somebody from the marketing team to merge it.
+- [Announce](#announcements) it, `$NAME` is `kickoff`
 - Push the generated `voters.json` to start triggering team additions
-- Send the emails (needs `SMTP_PASSWORD` set):
-  ```
-  nix-build ec -A kickoff.email --argstr discourseLink $DISCOURSE_LINK
-  ./result
-  ```
-
-  If any fail to send, resume using
-  ```
-  ./result --resume
-  ```
-
-  You can view failed sends in `jobs.log`, but you might also get mail delivery failure responses.
-- Announce it on GitHub:
-
-  Wait until both:
-  - All automatically eligible voters have been invited to the team
-  - All emails are sent
-
-  ```
-  nix-build ec -A kickoff.github --argstr discourseLink $DISCOURSE_LINK
-  ```
-
-  Then post `./result` as a PR to the election repo,
-  requesting a review from the voters GitHub team.
-
-  Lock the PR to only collaborators (with write access),
-  so that only the EC can send further notifications using it.
-
-  Then, remove the teams review request again, so that it doesn't stick around in users "to review" column without being able to review it (since it's locked)
-
 - Directly contact the users in `usersWithoutEmailAndGitHub.txt`
 
 ## Pre-voting phase
 
-- See [this process](./process.md)
+Process EC requests as documented in [`process.md`](./process.md) and keep the [timeline](../README.md#timeline) in mind throughout and send reminders throughout as described below.
 
-## 2024-09-27 Fri: Nomination reminder
+### 2024-09-27 Fri: Nomination reminder
 
-Before the weekend with the nomination deadline, send a reminder:
+The weekend before the nomination deadline, do [the announcement](#announcements) with `$NAME` as `reminder1`.
 
-- On discourse:
-  ```
-  nix-build ec -A reminder1.discourse
-  ```
-
-  Then post the contents of `result` to Discourse
-  in the same thread as the original kickoff announcement.
-- On GitHub:
-
-  ```
-  nix-build ec -A reminder1.github --argstr discourseLink $DISCOURSE_LINK
-  ```
-
-  Then post `./result` into the same PR as the original announcement.
-- Via email (needs `SMTP_PASSWORD` set):
-  ```
-  nix-build ec -A reminder1.email --argstr discourseLink $DISCOURSE_LINK
-  ./result
-  ```
-
-  If any fail to send, resume using
-  ```
-  ./result --resume
-  ```
-
-  You can view failed sends in `jobs.log`, but you might also get mail delivery failure responses.
-
-## 2024-09-30 Mon: Reminder for nominees
-
+### 2024-09-30 Mon: Reminder for nominees
 - Open an issue [like this](https://github.com/NixOS/SC-election-2024/issues/103)
-- Send emails to unconfirmed candidates using e.g.
-  ```
-  nix-build ec -A unconfirmed.needsToSubmitFormAndNeedsMoreEndorsements
-  ./result $GITHUB_HANDLE $NOMINATION_PR
-  ```
+- Send emails to unconfirmed candidates using the various attributes under `unconfirmed`:
+```
+nix-build ec -A unconfirmed.needsToAccept
+./result $GITHUB_HANDLE $NOMINATION_PR
+nix-build ec -A unconfirmed.needsToSubmitFormAndNeedsMoreEndorsements
+./result $GITHUB_HANDLE $NOMINATION_PR
+nix-build ec -A unconfirmed.needsToSubmitForm
+./result $GITHUB_HANDLE $NOMINATION_PR
+nix-build ec -A unconfirmed.needsMoreEndorsements
+./result $GITHUB_HANDLE $NOMINATION_PR
+```
 - Optionally PM the nominees via other means (e.g. Matrix) in case the above means fail.
 
-## 2024-10-02 Wed: Candidate finalisation and reminder
+### 2024-10-02 Wed: Candidate finalisation and reminder
 
 - Close all PRs of candidates that didn't meet the criteria
   with a comment mentioning the unmet criteria.
@@ -198,39 +188,61 @@ Before the weekend with the nomination deadline, send a reminder:
 - Decide with the EC on which (if any) candidates have a conflict of interest
   and update the source for `reminder2` with the result.
 
-- Copy all candidate forms for confirmed candidates from the internal EC repo into this repo, the
+- Copy all candidate forms for confirmed candidates from the internal EC repo into this repo.
 
 - Delete the internal EC repo.
 
-- Send a reminder for the Q&A, updating voter emails and requesting exceptions:
+- Send a reminder for the Q&A, updating voter emails and requesting exceptions, by doing an [announcement](#announcements) with `$NAME` as `reminder2`.
 
-  - On discourse:
+## Voting phase
+
+- Push Q&A to candidate forms using [this script](./collect-questions.sh).
+- Start an OpaVote election with:
+  - Description:
+    ```markdown
+    In this election we choose 7 people for the first Nix Steering Committee. See the announcement for more information.
+
+    You must cast your vote by 2024-11-03 23:59:59 Sun in Anywhere on Earth time, meaning as long as it is still the given day anywhere on the planet (i.e. at the end of that day in UTC-12). After the poll is closed, votes will not be accepted for any reason.
+
+    Please inform yourself about the candidates by looking at their candidate info documents, which include:
+    - Basic contact info
+    - A conflict of interest disclosure
+    - A statement on their motivation to be on the Steering Committee
+    - All Q&A questions answered by the candidate, followed by ones not answered
+
+    If you have a question, please contact the Election Committee.
+
+    TODO: Token timeout
     ```
-    nix-build ec -A reminder2.discourse
-    ```
+  - Enable automatic reminders (note that you can update the reminder text over time).
+  - If you intend to use OpaVote to tally the results, pick an appropriate method and number of winners, otherwise pick any method and the same number of winners as candidates.
+  - Add all the voters by building `nix-build -A voters` and uploading `result/emails.txt`.
+- Send the [announcement](#announcements) with `$NAME` as (`voteStart`, `corruption`, `restart`)
+- Turn off the [Auto-merge update email PR workflow](../.github/workflows/update-email.yml), because EC members will need to manually add emails to OpaVote when merging a PR from now on.
 
-    Then post the contents of `result` to Discourse
-    in the same thread as the original kickoff announcement.
-  - On GitHub:
+### Final voting reminder
 
-    ```
-    nix-build ec -A reminder2.github
-    ```
-
-    Then post `./result` into the same PR as the original announcement.
-
-## Starting the voting phase
-
-- Push Q&A to candidate forms
-- Add the voters via CIVS
-- Send the announcement
-- Archive the repo
+Send a final voting reminder like [this](https://github.com/NixOS/SC-election-2024/pull/85#issuecomment-2453158340) to voters using GitHub and Discourse.
 
 ## Post-voting phase
 
-## Misc
+- Close the OpaVote poll and download the ballots, storing them under [`opavote_ballots.blt`](../opavote_ballots.blt).
+- Run `nix-build -A verifyBallotMatch` to generate `result/civs_ballots.txt`
+- Create a new CIVS poll, making sure to check:
+  - [x] Make this a test poll: read all votes from a file.
+  - [x] Enable detailed ballot reporting"
+  - [x] Enforce proportional representation (rank of their favorite choice)
+- Close the CIVS poll to get the result
+- Download the CIVS ballots from `https://civs1.civs.us/cgi-bin/download_ballots.pl?id=$POLL_ID`, store it in the repo as `civs_ballots.csv`
+- Update the verification docs [here](../doc/verify.md).
+- Post the [announcement](#announcements) with `$NAME` as `result`.
+- Do final cleanups of this repository and archive it.
 
-- Running CIVS
+### In case of CoIs among candidates
 
-Sending reminders:
-- 2024-10-17 Friday: (vote reminder)
+The 2024 election didn't have any CoIs among candidates, but if future elections do, here's some notes:
+- Next to the candidate names, indicate other people they conflict with.
+  When looking at election results, this allows voters to easily spot when two conflicting people would be elected and know that one of them will be disqualified.
+- The description of the election should point out that the result of the election might not be correct depending on the conflicts.
+- Remove the candidate with the least votes from the CIVS ballots and create a new test poll with the changed ballots
+- Note that OpaVote also charges for recounts of ballots

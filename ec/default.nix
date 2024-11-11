@@ -490,7 +490,7 @@ in
         user=$(gh api "/users/$handle")
         handle=$(jq -r .login <<< "$user")
         id=$(jq -r .id <<< "$user")
-        echo "<img src=\"https://avatars.githubusercontent.com/u/$id\" width=\"25\" height=\"25\"> $handle (<a href=\"${repo}/blob/main/candidates/$file\">candidate info</a>)"
+        echo "$handle"
       done
     '';
   };
@@ -621,8 +621,8 @@ in
     announcement =
       platform: loginExists: discourseLink:
       ''
-        After successfully tallying the 450 ballots cast (56% turnout) using CIVS,
-        We are hereby concluding this election!
+        After successfully using CIVS to tally the 450 ballots cast (56% turnout) on OpaVote,
+        we are hereby concluding this election!
         We congratulate the first members of the Nix Steering Committee (SC) (ordered alphabetically):
         - [@Ericson2314] (2 year term)
         - [@fpletz] (1 year term)
@@ -658,7 +658,7 @@ in
         We are now establishing communications with the first SC members
         and will soon make a final handover announcement on behalf of the EC / NCA.
 
-        We, the members of the EC / NCA, and @ron from the NixOS Foundation board,
+        We, the members of the EC / NCA, and ${{ discourse = "@ron"; github = "@refroni"; }.${platform} or "Ron"} from the NixOS Foundation board,
         are thankful for everybody's participation in this first election,
         and are looking forward to see the first SC getting started.
 

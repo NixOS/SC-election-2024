@@ -4,7 +4,7 @@ pkgs.runCommand "verify-ballot-match" {
     root = ../.;
     fileset = pkgs.lib.fileset.unions [
       ./process.sh
-      ../civs_ballots.csv
+      (pkgs.lib.fileset.maybeMissing ../civs_ballots.csv)
       ../opavote_ballots.blt
     ];
   };
@@ -16,5 +16,7 @@ pkgs.runCommand "verify-ballot-match" {
 
   mkdir $out
   nix/process.sh < ./opavote_ballots.blt > $out/civs_ballots.txt
-  diff <(tail -n+2 civs_ballots.csv | sort -n) <(tail -n+2 $out/civs_ballots.txt)
+  if [[ -f civs_ballots.csv ]]; then
+    diff <(tail -n+2 civs_ballots.csv | sort -n) <(tail -n+2 $out/civs_ballots.txt)
+  fi
 ''

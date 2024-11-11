@@ -1,5 +1,6 @@
 > [!Note]
-> We're having data corruption problems with the election platform, see [the announcement](https://discourse.nixos.org/t/nix-steering-committee-election-2024/52232/15)
+> This repository is archived because the election [has concluded](https://discourse.nixos.org/t/results-for-the-nix-steering-committee-election-2024/55511).
+> For help with running another election, check out the [EC documentation](./ec/README.md) or contact this elections EC members.
 
 # Nix Steering Committee (SC) Election 2024
 
@@ -50,7 +51,7 @@ Its primary mission is to ensure legitimacy of the election.
 
 For any questions, concerns or suggestions about this election, reach out to the election committee:
 - On GitHub: Ping [@NixOS/ec-2024](https://github.com/orgs/NixOS/teams/ec-2024)
-- By email: <elections@nixos.org>
+- <s>By email: <elections@nixos.org></s>
 - On Matrix: [Nix SC Elections](https://matrix.to/#/#sc-elections:nixos.org) room
 - To any specific member as mentioned below
 
@@ -66,7 +67,7 @@ For this first election, the NCA members are acting as the EC:
 
 ## Timeline
 
-The election is expected to take place in a span of 6 weeks:
+The election was originally expected to take place in a span of 6 weeks, but has stretched out some more:
 
 - 2024-09-16 Mon: Election starts
 - 2024-09-29 Sun: Deadline for nominations
